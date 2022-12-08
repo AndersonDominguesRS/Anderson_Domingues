@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 import br.edu.ifnet.app.Auxiliar.Constante;
 
@@ -82,13 +83,26 @@ public class Cliente {
 							
 				while (linha != null) {
 					
-					campos = linha.split(";");									
-//					System.out.println("Leitura da linha " + " " + linha);
+					campos = linha.split(";");
+					nome=campos[0];
+					cnpj=campos[1];
+					endereco=campos[2];
+					cidade=campos[3];
+					estado=campos[4];
+					pais=campos[5];
+					cep=campos[6];
 					
-					testelista[0]=linha;				
+					System.out.println("Nome do empreendimento: " + " " + nome);
+					System.out.println("CNPJ	: " + " " + cnpj);
+					System.out.println("Endereço:" + " " + endereco);
+					System.out.println("Cidade	: " + " " + cidade);
+					System.out.println("Estado	: " + " " + estado);
+					System.out.println("Pais	: " + " " + pais);
+					System.out.println("CEP	: " + " " + cep);
+					System.out.println("-----------------------------------");
+					
 
-					linha= leitura.readLine();	
-	
+					linha= leitura.readLine();		
 
 					
 				}
@@ -103,25 +117,45 @@ public class Cliente {
 			}
 			
 		} finally {
-			System.out.println("Processamento realizado com sucesso");
-			System.out.println(Arrays.asList(testelista));
-		}
+			System.out.println("Importação realizada com sucesso!");
+			}
 	}
 	
 	//Método para cadastrar um novo cliente
 	
 	public void cadastroCliente() {
 		
-//		System.out.println("CADASTRO NOVO CLIENTE");
-//		System.out.println("");
+		System.out.println("CADASTRO NOVO CLIENTE");
+		System.out.println("");
 		
-		nome="Anderson";
-		cnpj="teste"; 
-		endereco="teste"; 
-		cidade="teste"; 
-		estado="teste"; 
-		pais="teste"; 
-		cep="teste";
+		Scanner in = new Scanner(System.in);
+		
+		System.out.println("Digite o nome do cliente:");
+		nome=in.nextLine();
+		System.out.println("Digite o CNPJ do cliente:");
+		cnpj=in.nextLine();
+		System.out.println("Digite o nome da rua e o número do cliente:");
+		endereco=in.nextLine();
+		System.out.println("Digite a cidade do cliente:");
+		cidade=in.nextLine();
+		System.out.println("Digite o estado do cliente:");
+		estado=in.nextLine();
+		System.out.println("Digite o pais do cliente:");
+		pais=in.nextLine();
+		System.out.println("Digite o CEP do cliente:");
+		cep=in.nextLine();
+		
+		System.out.println("Nome do empreendimento: " + " " + nome);
+		System.out.println("CNPJ	: " + " " + cnpj);
+		System.out.println("Endereço:" + " " + endereco);
+		System.out.println("Cidade	: " + " " + cidade);
+		System.out.println("Estado	: " + " " + estado);
+		System.out.println("Pais	: " + " " + pais);
+		System.out.println("CEP	: " + " " + cep);
+		System.out.println("-----------------------------------");
+		System.out.println("Cliente cadastrado com sucesso!");
+		
+		
 			
 		
 	}

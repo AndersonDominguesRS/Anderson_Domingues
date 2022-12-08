@@ -1,0 +1,9 @@
+Shopping Y; 45.443.572/0001-83; Rua Dos Amores 54; Porto Alegre; Rio Grande Do Sul; Brasil; 94828-000
+Shopping M; 45.443.572/0001-89; Rua Dos Passaros 14; Porto Alegre; Rio Grande Do Sul; Brasil; 94828-003
+Shopping A; 45.443.572/0001-78; Rua Dos Arvores 41; Porto Alegre; Rio Grande Do Sul; Brasil; 94828-009
+Shopping H; 45.443.572/0001-77; Estrada 10 74; Porto Alegre; Rio Grande Do Sul; Brasil; 94828-007
+Shopping K; 45.443.572/0001-74; Casa Amarela 85; Porto Alegre; Rio Grande Do Sul; Brasil; 94828-008
+Shopping L; 45.443.572/0001-21; Beco Dos Sabias 96; Porto Alegre; Rio Grande Do Sul; Brasil; 94828-077
+Shopping O; 45.443.572/0001-96; Rua Coberta 36; Porto Alegre; Rio Grande Do Sul; Brasil; 94828-099
+Shopping U; 45.443.572/0001-25; Rua Do Lago 5; Porto Alegre; Rio Grande Do Sul; Brasil; 94828-044
+Shopping T; 45.443.572/0001-45; Rua Dos Morros 2; Porto Alegre; Rio Grande Do Sul; Brasil; 94828-055
