@@ -1,14 +1,16 @@
 package br.edu.ifnet.app.Dominio;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-
 import br.edu.ifnet.app.Auxiliar.Constante;
+
 
 
 
@@ -102,8 +104,7 @@ public class Cliente {
 					System.out.println("-----------------------------------");
 					
 
-					linha= leitura.readLine();		
-
+					linha= leitura.readLine();	
 					
 				}
 				
@@ -125,6 +126,7 @@ public class Cliente {
 	
 	public void cadastroCliente() {
 		
+	
 		System.out.println("CADASTRO NOVO CLIENTE");
 		System.out.println("");
 		
@@ -144,6 +146,29 @@ public class Cliente {
 		pais=in.nextLine();
 		System.out.println("Digite o CEP do cliente:");
 		cep=in.nextLine();
+		
+		try {
+			
+			try {
+
+				
+				FileWriter fileW=new FileWriter(Constante.dir+Constante.arqEscrita);
+				BufferedWriter escrita = new BufferedWriter(fileW);
+				
+				escrita.write(nome + ":" + cnpj + ":" +endereco + ":" + cidade +":" + estado +";"+ pais + ":" + cep + "\r\n");
+					
+				escrita.close();
+				fileW.close();
+				
+				
+			} catch (IOException e) {
+				
+				System.out.println("[ERROR] - " + e.getMessage());
+			}
+			
+		} finally {
+			System.out.println("Importação realizada com sucesso!");
+			}
 		
 		System.out.println("Nome do empreendimento: " + " " + nome);
 		System.out.println("CNPJ	: " + " " + cnpj);

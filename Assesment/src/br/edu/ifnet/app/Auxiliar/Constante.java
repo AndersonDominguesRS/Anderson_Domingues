@@ -17,5 +17,6 @@ public class Constante {
 	//diretorios
 	public final static String dir= "C:/Users/admin/GIT_Assesment/Assesment/src/br/edu/ifnet/app/Dominio/";
 	public final static String arq= "Lista_de_clientes.txt";
+	public final static String arqEscrita= "Lista_de_novo_cliente.txt";
 
 }

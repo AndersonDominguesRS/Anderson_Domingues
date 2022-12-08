@@ -11,8 +11,9 @@ public class MenuTestes {
 		System.out.println("Opcoes de testes:");
 		System.out.println("[1] Importar cadastros");
 		System.out.println("[2] Cadastrar novo cliente");
-		System.out.println("[3] Registrar ocorrencia");
-		System.out.println("[4] Sair.");
+		System.out.println("[3] Registrar defeito");
+		System.out.println("[4] Registrar solucao");
+		System.out.println("[5] Sair.");
 		
 		Scanner in=new Scanner(System.in);	
 		
