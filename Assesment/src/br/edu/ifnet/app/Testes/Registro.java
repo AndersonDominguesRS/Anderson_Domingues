@@ -1,15 +1,12 @@
 package br.edu.ifnet.app.Testes;
 
-import java.awt.Menu;
-import java.util.Arrays;
+
 import java.util.Scanner;
 import br.edu.ifnet.app.Dominio.Cliente;
 import br.edu.ifnet.app.Dominio.Defeito;
-import br.edu.ifnet.app.Dominio.Ocorrencia;
 import br.edu.ifnet.app.Dominio.Solucao;
-import br.edu.ifnet.app.Exceptions.ImportaCliente;
 
-public class TestePrograma {
+public class Registro {
 	
 	
 	public static void main(String[] args) {
@@ -25,10 +22,9 @@ public class TestePrograma {
 		switch (menu.opcao) {
 		case 1:	
 			
-			c1.ImportaCliente();
+			c1.ImportaCliente();			
 
-			break;
-						
+			break;						
 			
 		case 2:
 			
@@ -38,13 +34,19 @@ public class TestePrograma {
 			
 		case 3:		
 
-			defeito.regDefeito();
+			defeito.regOcorrencia();
 			
 			break;
 			
 		case 4:		
 
-			solucao.regSolucao();
+			solucao.regOcorrencia();
+			
+			break;
+			
+		case 5:		
+
+			c1.ImportaClienteAtivo();
 			
 			break;
 
@@ -52,9 +54,11 @@ public class TestePrograma {
 			break;
 		}
 		
-		}while (menu.opcao!=5);{
+		}while (menu.opcao!=6);{
 			System.out.println("Programa finalizado!");
 		}	
 
 	}
+		
 }
+
