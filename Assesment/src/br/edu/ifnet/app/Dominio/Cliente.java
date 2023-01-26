@@ -11,9 +11,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import br.edu.ifnet.app.Auxiliar.Constante;
+import br.edu.ifnet.app.Exceptions.CadastroClienteExceptions;
+import br.edu.ifnet.app.Exceptions.ImportaClienteExceptions;
 
 
-//Padrão do arquivo de importação = Nome; CNPJ; Rua+numero; Cidade; estado; pais;cep
+//PadrÃ£o do arquivo de importaÃ§Ã£o = Nome; CNPJ; Rua+numero; Cidade; estado; pais;cep
 
 public class Cliente {
 	
@@ -28,6 +30,92 @@ public class Cliente {
 	private String[] campos=null;
 	private int qtdeCadastro=0;
 	private int qtdeTotalCadastros=0;
+	
+	public Cliente (String nomeCliente_, String cnpj, String endereco, String cidade, String estado, String pais, String cep) {
+		
+		this.nomeCliente=nomeCliente_;
+		this.cnpj=cnpj;
+		this.endereco=endereco;
+		this.cidade=cidade;
+		this.estado=estado;
+		this.pais=pais;
+		this.cep=cep;
+	}
+	
+	public String getStatusEmpreemdimento() {
+		return statusEmpreemdimento;
+	}
+
+	public void setStatusEmpreemdimento(String statusEmpreemdimento) {
+		this.statusEmpreemdimento = statusEmpreemdimento;
+	}
+
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+
+	public String[] getCampos() {
+		return campos;
+	}
+
+	public void setCampos(String[] campos) {
+		this.campos = campos;
+	}
+
+	public int getQtdeCadastro() {
+		return qtdeCadastro;
+	}
+
+	public void setQtdeCadastro(int qtdeCadastro) {
+		this.qtdeCadastro = qtdeCadastro;
+	}
+
+	public int getQtdeTotalCadastros() {
+		return qtdeTotalCadastros;
+	}
+
+	public void setQtdeTotalCadastros(int qtdeTotalCadastros) {
+		this.qtdeTotalCadastros = qtdeTotalCadastros;
+	}
+
+	public List<String> getCadastros() {
+		return cadastros;
+	}
+
+	public void setCadastros(List<String> cadastros) {
+		this.cadastros = cadastros;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+
+
 	
 	List<String> cadastros = new ArrayList<String>();
 	
@@ -101,17 +189,12 @@ public class Cliente {
 								+ " ", campos[0], campos[1], campos[2], campos[3], campos[4], campos[5]
 										, campos[6], campos[7]));
 						
-						cadastros.add(leituraCadastro);
-						
-						
-						qtdeTotalCadastros++;				
-						
+						cadastros.add(leituraCadastro);						
+						qtdeTotalCadastros++;							
 						
 					}
 					
-					linha= leitura.readLine();				
-	
-					
+					linha= leitura.readLine();					
 				}
 				
 				if (qtdeTotalCadastros==qtdeCadastro) {
@@ -143,28 +226,13 @@ public class Cliente {
 	}
 	
 	
-	public void cadastroCliente() {
+	public void cadastroCliente() throws CadastroClienteExceptions {
 		
-	
-		System.out.println("CADASTRO NOVO CLIENTE");
-		System.out.println("");
+		if (nomeCliente==null || nomeCliente==null || cnpj==null || endereco==null || cidade==null || estado==null || pais==null || cep==null ) {
+					
+			throw new CadastroClienteExceptions("Todos os campos precisam ser preenchidos.");
+		}
 		
-		Scanner in = new Scanner(System.in);
-		
-		System.out.println("Digite o nome do cliente:");
-		nomeCliente=in.nextLine();
-		System.out.println("Digite o CNPJ do cliente:");
-		cnpj=in.nextLine();
-		System.out.println("Digite o nome da rua e o número do cliente:");
-		endereco=in.nextLine();
-		System.out.println("Digite a cidade do cliente:");
-		cidade=in.nextLine();
-		System.out.println("Digite o estado do cliente:");
-		estado=in.nextLine();
-		System.out.println("Digite o pais do cliente:");
-		pais=in.nextLine();
-		System.out.println("Digite o CEP do cliente:");
-		cep=in.nextLine();
 		
 		try {
 			
@@ -172,13 +240,12 @@ public class Cliente {
 
 				
 				FileWriter fileW=new FileWriter(Constante.dir+Constante.arqEscrita);
-				BufferedWriter escrita = new BufferedWriter(fileW);
+				BufferedWriter escrita = new BufferedWriter(fileW);				
 				
 				escrita.write(statusEmpreemdimento + ":" + nomeCliente + ":" + cnpj + ":" +endereco + ":" + cidade +":" + estado +";"+ pais + ":" + cep + "\r\n");
-					
+						
 				escrita.close();
 				fileW.close();
-				in.close();
 				
 				
 			} catch (IOException e) {
@@ -187,7 +254,7 @@ public class Cliente {
 			}
 			
 		} finally {
-			System.out.println("Importação realizada com sucesso!");
+			System.out.println("Cliente cadastrado com sucesso!");
 			}
 		
 		System.out.println("Status do empreendimento: " + " " + statusEmpreemdimento);
@@ -199,17 +266,10 @@ public class Cliente {
 		System.out.println("Pais	: " + " " + pais);
 		System.out.println("CEP	: " + " " + cep);
 		System.out.println("-----------------------------------");
-		System.out.println("Cliente cadastrado com sucesso!");		
 			
 		
 	}
 	
-	@Override
-	public String toString() {
-		
-		return nomeCliente + " ; " + cep + "; " + pais;
-	}
-
 	
 	public void ImportaClienteAtivo() {
 		
@@ -217,7 +277,6 @@ public class Cliente {
 		try {
 			
 			try {
-
 				
 				FileReader file=new FileReader(Constante.dir+Constante.arq);
 				BufferedReader leitura = new BufferedReader(file);
@@ -270,8 +329,18 @@ public class Cliente {
 			}
 			
 		} finally {
-			System.out.println("Importação realizada com sucesso!");
+			System.out.println("Importação de clientes ativos realizada com sucesso!");
 			}		
 	}	
+	
+	
+	@Override
+	public String toString() {
+		
+		return statusEmpreemdimento + " ; " + nomeCliente + " ; " + cnpj + " ; " + endereco + " ; " + cidade + " ; " +
+				 estado + " ; " + pais + " ; " + cep + "; " + pais  ;
+	}
+	
+
 
 }

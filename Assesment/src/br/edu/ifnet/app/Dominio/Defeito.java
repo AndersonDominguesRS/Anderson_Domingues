@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import br.edu.ifnet.app.Auxiliar.Constante;
+import br.edu.ifnet.app.Exceptions.RegistraOcorrenciaExceptions;
 
 public class Defeito extends Ocorrencia {
 	
@@ -11,38 +12,47 @@ public class Defeito extends Ocorrencia {
 	private String descricaoDefeito=null;
 	private Cliente cliente;
 	
+	
 	public Cliente getCliente() {
 		return cliente;
 	}
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
-	
-	
-	
-	
+	public int getNumeroChamado() {
+		return numeroChamado;
+	}
+	public void setNumeroChamado(int numeroChamado) {
+		this.numeroChamado = numeroChamado;
+	}
+	public String getDescricaoDefeito() {
+		return descricaoDefeito;
+	}
+	public void setDescricaoDefeito(String descricaoDefeito) {
+		this.descricaoDefeito = descricaoDefeito;
+	}
+		
 	@Override
-	public void regOcorrencia() {
+	public void regOcorrencia (String nomeCliente, String identificacaoEquipamento, String descricao, String data) throws RegistraOcorrenciaExceptions {
+		
+		if (nomeCliente==null || identificacaoEquipamento==null || descricao==null || data==null) {
+			
+			throw new RegistraOcorrenciaExceptions("Os campos nome do cliente, Identificação do equipamento, descrição do defeito e data devem ser preenhidos");
+		}
+		
+		this.identificacaoEquipamento=identificacaoEquipamento;
+		this.descricaoDefeito=descricao;
+		this.data=data;
 		
 		Random rando=new Random();		
-		Scanner in = new Scanner(System.in);
-		
-		System.out.println("Informe a identificação do cliente:");
-		cliente.setNome(in.nextLine());
+	
 		System.out.println("Selecione um tipo de equipamento:");		
 		opcoesEquipamentos();		
-		System.out.println("Informe a identificação do equipamento:");
-		identificacaoEquipamento=in.nextLine();		
-		System.out.println("Informe a descrição do defeito::");
-		descricaoDefeito=in.nextLine();		
-		System.out.println("Informe a data");
-		data=in.nextLine();	
-		numeroChamado=rando.nextInt(1000);
-		
-		
+	
+		numeroChamado=rando.nextInt(1000);		
 		
 	}
+	
 	@Override
 	public void opcoesEquipamentos() {
 		
@@ -75,18 +85,30 @@ public class Defeito extends Ocorrencia {
 			
 		}
 		
+		in.close();
+		
 		
 	}
 	
 	@Override
 	public String toString() {
 		
-		return clienteTeste + " ; " +  tipoEquipamento + " ; " + identificacaoEquipamento + ": " + descricaoDefeito +  " ; " + data + ";" + numeroChamado;
+		return cliente + " ; " +  tipoEquipamento + " ; " + identificacaoEquipamento + ": " + descricaoDefeito +  " ; " + data + ";" + numeroChamado;
 		
 	}
-	@Override
-	public void imprimir() {
-		System.out.println(toString());
+	public void imprimir() throws RegistraOcorrenciaExceptions {
+		
+		if (opcao<0 || opcao>4) {
+			
+			throw new RegistraOcorrenciaExceptions("Tipo de equipamento informado inválido!");
+		}
+		
+		System.out.println("Nome do empreendimento: "+ getCliente().getNomeCliente());
+		System.out.println("Tipo de equipamento: "+ tipoEquipamento);
+		System.out.println("IdentificaÃ§Ã£o do equipamento: "+ identificacaoEquipamento);
+		System.out.println("Descrição do defeito: "+ descricaoDefeito);
+		System.out.println("Data: "+ data);
+		System.out.println("Número do chamado gerado: "+ numeroChamado);
 		
 	}
 		
