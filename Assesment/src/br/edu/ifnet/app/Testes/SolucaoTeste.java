@@ -7,25 +7,88 @@ public class SolucaoTeste {
 	
 	public static void main(String[] args) {
 		
-		Solucao atPreventivo=new Solucao("IMPRESSORA", 11, 13, 0, 0);
+		
+		Solucao atPreventivo1= new Solucao("NOVO SHOPPING", "REALIZADO MANUTEN«√O PREVENTIVA",
+				null, 12, 13);
+		Solucao atPreventivo2= new Solucao(null, "REALIZADO MANUTEN«√O PREVENTIVA",
+				null, 12, 13);
+		Solucao atPreventivo3= new Solucao("NOVO SHOPPING", null,
+				null, 12, 13);
 		
 		try {
-			atPreventivo.regOcorrencia("SHOPPING", "TERMINAL DE IMPRESS√ÉO 2", "REALIZADO AJUSTE NA IMPRESSORA", "24/01/2023");
+			System.out.println(atPreventivo1.regOcorrencia("IMPRESSORA ESTOQUE"));
+		} catch (RegistraOcorrenciaExceptions e) {
+			System.out.println("[ERROR] " + e.getMessage());
+		}
+		
+		try {
+			System.out.println(atPreventivo2.regOcorrencia("IMPRESSORA ESTOQUE"));
+		} catch (RegistraOcorrenciaExceptions e) {
+			System.out.println("[ERROR] " + e.getMessage());
+		}
+		
+		try {
+			System.out.println(atPreventivo3.regOcorrencia("IMPRESSORA ESTOQUE"));
+		} catch (RegistraOcorrenciaExceptions e) {
+			System.out.println("[ERROR] " + e.getMessage());
+		}
+		
+		System.out.println("----------------------------------");
+		
+		Solucao atCorretivo1= new Solucao("NOVO SHOPPING", "AJUSTE NA VELOCIDADE DA IMPRESSORA",
+				null, 12, 13);
+		
+		atCorretivo1.setHoraAberturaTeste(12);
+		atCorretivo1.setHoraRecebimento(13);
+		atCorretivo1.setHoraInicioAtendimento(14);
+		atCorretivo1.setHoraFimAtendimento(15);
+				
+		
+		try {
+			
+			
+			System.out.println(atCorretivo1.regOcorrencia("TERMINAL DE IMPRESS√O"));
+			atCorretivo1.imprimirCorretivo();
 			
 		} catch (RegistraOcorrenciaExceptions e) {
 			System.out.println("[ERROR] " + e.getMessage());
 		}
 		
-		System.out.println("--------------------------------------------");
 		
-		Solucao atCorretivo=new Solucao("LEITOR", 13, 14, 10, 12);
+		Solucao atCorretivo2= new Solucao("NOVO SHOPPING", "TROCA DA FONTE",
+				null, 17, 13);
+		atCorretivo2.setHoraAberturaTeste(12);
+		atCorretivo2.setHoraRecebimento(14);
+		atCorretivo2.setHoraFimAtendimento(18);
 		
 		try {
-			atCorretivo.regOcorrencia("SHOPPING", "TERMINAL DE IMPRESS√ÉO 2", "REALIZADO AJUSTE NA IMPRESSORA", "24/01/2023");
+			
+			
+			System.out.println(atCorretivo2.regOcorrencia("TERMINAL DE IMPRESS√O"));
+			
+			
 		} catch (RegistraOcorrenciaExceptions e) {
 			System.out.println("[ERROR] " + e.getMessage());
 		}
+		
+		
+		Solucao atCorretivo3= new Solucao("NOVO SHOPPING", "AJUSTE NA VELOCIDADE DA IMPRESSORA",
+				null, 12, 13);
+		atCorretivo3.setHoraAberturaTeste(12);
+		atCorretivo3.setHoraRecebimento(13);
+		atCorretivo3.setHoraInicioAtendimento(14);
+		atCorretivo3.setHoraFimAtendimento(15);
+		
+		try {
 			
+			
+			System.out.println(atCorretivo3.regOcorrencia("TERMINAL DE IMPRESS√O"));
+		} catch (RegistraOcorrenciaExceptions e) {
+			System.out.println("[ERROR] " + e.getMessage());
+		}
+		
+
+	
 	}
 
 }

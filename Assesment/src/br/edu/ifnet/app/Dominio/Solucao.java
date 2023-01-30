@@ -1,5 +1,7 @@
 package br.edu.ifnet.app.Dominio;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import br.edu.ifnet.app.Auxiliar.Constante;
@@ -9,43 +11,48 @@ import br.edu.ifnet.app.Exceptions.RegistraOcorrenciaExceptions;
 
 public class Solucao extends Ocorrencia {
 	
+	DateTimeFormatter formato = DateTimeFormatter.ofPattern("DD/MM/YYYY HH:MM:SS");	
+	private LocalDateTime dataFechamento=null;
 	private String peca=null;
-	private String descricaoSolucao=null;
-	private int tipoAtendimento=0;
+	private String chamadoFechado;
+	private int horaAberturaManual=0;
 	
-	public Solucao( String pecaInformada, int horaInicioAtendimento, int horaFinalAtendimento, int horaAbertura, int
-			horaRecebimento){
+	
+	
+	public int getHoraAberturaTeste() {
+		return horaAberturaManual;
+	}
+
+	public void setHoraAberturaTeste(int horaAberturaManual) {
+		this.horaAberturaManual = horaAberturaManual;
+	}
+
+	public Solucao( String identificacaoCliente, String observacoes, String pecaInformada,
+			int horaInicioAtendimento, int horaFinalAtendimento){
+		
+		super(identificacaoCliente, observacoes);
 		
 		this.peca=pecaInformada;
 		this.horaInicioAtendimento=horaInicioAtendimento;
 		this.horaFimAtendimento=horaFinalAtendimento;
-		this.horaAbertura=horaAbertura;
-		this.horaRecebimento=horaRecebimento;
+		dataFechamento =LocalDateTime.now();
 		
 	};
 	
 	@Override
-	public void regOcorrencia (String nomeCliente, String identificacaoEquipamento, String descricao, String data) throws RegistraOcorrenciaExceptions {
+	public String regOcorrencia (String identificacaoEquipamento) throws RegistraOcorrenciaExceptions {
 		
-		this.identificacaoCliente=nomeCliente;
 		this.identificacaoEquipamento=identificacaoEquipamento;
-		this.descricaoSolucao=descricao;
-		this.data=data;		
+
 		
-		if (nomeCliente==null || identificacaoEquipamento==null || descricao==null || data==null) {
+		if (identificacaoCliente==null || identificacaoEquipamento==null || observacoes==null) {
 			
-			throw new RegistraOcorrenciaExceptions("Os campos nome do cliente, identificação do equipamento, descriÃ§Ã£o do defeito e data devem ser preenhidos");
+			throw new RegistraOcorrenciaExceptions("Os campos nome do cliente e observações devem ser preenhidos");
 		}
 		
-		Scanner ne = new Scanner(System.in);
+
 		
-		System.out.println("Informe o tipo de atendimento:");
-		System.out.println("( 1 ) = Manutenção preventiva.");
-		System.out.println("( 2 ) = Manutenção corretiva.");
-		
-		tipoAtendimento=ne.nextInt();
-		
-		if (tipoAtendimento==1) {
+		if (horaAberturaManual==0 || horaRecebimento==0) {
 			
 			tipoAtendimentoRealizado=Constante.preventivo;	
 			
@@ -56,27 +63,32 @@ public class Solucao extends Ocorrencia {
 			}
 				
 			
-		}else if (tipoAtendimento==2){
+		}
+		
+		else if (horaRecebimento>0) {
 			
 			try {
-				regHorarioAtendimento( horaAbertura,  horaRecebimento, horaInicioAtendimento, horaFimAtendimento);
+				regHorarioAtendimento( horaAberturaManual, 
+						horaFimAtendimento, horaAbertura, horaRecebimento);
 								
 			} catch (HorariosInicioFimAtendimentoExceptions | HorariosRecebimentoExceptions2 e) {
 				System.out.println("[ERROR] " + e.getMessage());
-			}			
-						
+			}
 			
 			
-		} else {
-			System.out.println("Opção de atendimento inválida!");
+			
 		}
+					
+		
+		
+		return chamadoFechado.toString();
 		
 		
 	}
 	
 	
 	@Override
-	public void opcoesEquipamentos() {
+	public String opcoesEquipamentos() {
 		
 		Scanner in = new Scanner(System.in);
 		
@@ -107,33 +119,54 @@ public class Solucao extends Ocorrencia {
 			
 		}
 		
-		in.close();
+		
+		
+		return tipoEquipamento;
 		
 		
 	}
 	
 	public void regHorarioAtendimento(int horaInicio, int horaFim) throws HorariosInicioFimAtendimentoExceptions {
 		
-		if (horaInicio>horaFim) {
+		if (horaInicioAtendimento>horaFimAtendimento) {
 			
 			throw new HorariosInicioFimAtendimentoExceptions("Horários inicio e fim inválidos");
 		}
 		
-		tempoTotalAtendimento=horaFim-horaInicio;
-		imprimirPreventivo();
+		tempoTotalAtendimento=horaFimAtendimento-horaInicioAtendimento;
+		
+		StringBuilder s1=new StringBuilder();
+		s1.append(identificacaoCliente);
+		s1.append(";");
+		s1.append(identificacaoEquipamento);
+		s1.append(";");
+		s1.append(tipoAtendimentoRealizado);
+		s1.append(";");
+		s1.append(horaInicioAtendimento);
+		s1.append(";");
+		s1.append(horaFimAtendimento);
+		s1.append(";");
+		s1.append(tempoTotalAtendimento);
+		s1.append(";");
+		s1.append(dataFechamento.format(formato));
+		
+		chamadoFechado=s1.toString();
+		
+
 		
 	}	
 	
-	public void regHorarioAtendimento(int horaAbertura, int horaRecebimento, int horaInicio, int horaFim)
+	public void regHorarioAtendimento(int horaAberturaTeste, int horaRecebimento, int horaInicio, int horaFim)
 			throws HorariosInicioFimAtendimentoExceptions, HorariosRecebimentoExceptions2 {
 		
-		if (horaInicio>horaFim) {
+		if (getHoraInicioAtendimento()>getHoraFimAtendimento()) {
 			
 			throw new HorariosInicioFimAtendimentoExceptions("Hotários inicio e fim inválidos");
 		}
 		
 	
-		if (horaAbertura>horaInicio || horaAbertura>horaRecebimento || horaAbertura>horaInicioAtendimento || horaRecebimento>horaInicioAtendimento) {
+		if (horaAberturaManual>getHoraInicioAtendimento() || horaAberturaManual>getHoraRecebimento() ||
+				 getHoraRecebimento()>getHoraInicioAtendimento()) {
 			
 			throw new HorariosRecebimentoExceptions2("Horários inválidos de recebimento e inicio de atendimento inválidos");
 		}
@@ -143,14 +176,39 @@ public class Solucao extends Ocorrencia {
 		System.out.println("Selecione um tipo de equipamento:");		
 		opcoesEquipamentos();		
 		tipoAtendimentoRealizado=Constante.corretivo;
-					
-		in.close();
+
 		
-		tempoTotalAtendimento=horaFim-horaInicio;
-		tempoRespostaAtendimento=horaRecebimento-horaAbertura;
-		tempoRespostaInicioAtendimento=horaInicio-horaAbertura;	
+		tempoTotalAtendimento=horaFimAtendimento-horaInicioAtendimento;
+		tempoRespostaAtendimento=getHoraRecebimento() - horaAberturaManual;
+		tempoRespostaInicioAtendimento=getHoraInicioAtendimento()-horaAberturaManual;	
 		
-		imprimirCorretivo();
+		StringBuilder s2=new StringBuilder();
+		s2.append(identificacaoCliente);
+		s2.append(";");
+		s2.append(tipoAtendimentoRealizado);
+		s2.append(";");
+		s2.append(tipoEquipamento);
+		s2.append(";");
+		s2.append(identificacaoEquipamento);
+		s2.append(";");
+		s2.append(horaAberturaManual);
+		s2.append(";");
+		s2.append(horaRecebimento);
+		s2.append(";");		
+		s2.append(horaInicioAtendimento);
+		s2.append(";");
+		s2.append(horaFimAtendimento);
+		s2.append(";");
+		s2.append(tempoTotalAtendimento);
+		s2.append(";");
+		s2.append(tempoRespostaAtendimento);
+		s2.append(";");
+		s2.append(tempoRespostaInicioAtendimento);
+		s2.append(";");
+		s2.append(dataFechamento.format(formato));
+		
+		
+		chamadoFechado=s2.toString();
 		
 	}
 	
@@ -161,8 +219,8 @@ public class Solucao extends Ocorrencia {
 		System.out.println("Tipo de atendimento realizado: " + tipoAtendimentoRealizado);
 		System.out.println("Hora de inicio do atendimento: " + horaInicioAtendimento);
 		System.out.println("Hora final do atendimento: " + horaFimAtendimento);
-		System.out.println("Tempo total de atendimento: " +tempoTotalAtendimento);		
-		
+		System.out.println("Tempo total de atendimento: " +tempoTotalAtendimento);	
+		System.out.println("Data fechamento do chamado: " + dataFechamento.format(formato));
 		
 	}
 	
@@ -173,13 +231,15 @@ public class Solucao extends Ocorrencia {
 		System.out.println("Tipo de atendimento realizado: " + tipoAtendimentoRealizado);
 		System.out.println("Tipo de equipamento avaliado: " + tipoEquipamento);
 		System.out.println("Identificação do equipamento: " + identificacaoEquipamento);
-		System.out.println("Hora abertura do chamado: " + horaAbertura);
+		System.out.println("Hora abertura do chamado: " + horaAberturaManual);
 		System.out.println("Hora recebimento do chamado: " + horaRecebimento);		
 		System.out.println("Hora de inicio do atendimento: " + horaInicioAtendimento);
 		System.out.println("Hora final do atendimento: " + horaFimAtendimento);
 		System.out.println("Tempo total de atendimento: " +tempoTotalAtendimento);	
 		System.out.println("Tempo de resposta de recebimento do chamado: " +tempoRespostaAtendimento);
 		System.out.println("Tempo total percorrido até o inicio do atendimento: " +tempoRespostaInicioAtendimento);		
+		System.out.println("Data fechamento do chamado " +dataFechamento.format(formato)); 
+		
 		
 	}
 		

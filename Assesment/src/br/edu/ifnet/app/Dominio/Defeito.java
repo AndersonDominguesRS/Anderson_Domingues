@@ -1,5 +1,7 @@
 package br.edu.ifnet.app.Dominio;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -8,7 +10,16 @@ import br.edu.ifnet.app.Exceptions.RegistraOcorrenciaExceptions;
 
 public class Defeito extends Ocorrencia {
 	
-	private int numeroChamado=0;
+	DateTimeFormatter formato = DateTimeFormatter.ofPattern("DD/MM/YYYY HH:MM:SS");	
+	private LocalDateTime dataAbertura;
+	
+	public Defeito(String identificacaoCliente, String observacoes) {
+		super(identificacaoCliente, observacoes);
+		
+		dataAbertura =LocalDateTime.now();
+
+	}
+	private int numeroChamado=0; 
 	private String descricaoDefeito=null;
 	private Cliente cliente;
 	
@@ -22,39 +33,49 @@ public class Defeito extends Ocorrencia {
 	public int getNumeroChamado() {
 		return numeroChamado;
 	}
-	public void setNumeroChamado(int numeroChamado) {
-		this.numeroChamado = numeroChamado;
-	}
+
 	public String getDescricaoDefeito() {
 		return descricaoDefeito;
 	}
-	public void setDescricaoDefeito(String descricaoDefeito) {
-		this.descricaoDefeito = descricaoDefeito;
-	}
+
 		
 	@Override
-	public void regOcorrencia (String nomeCliente, String identificacaoEquipamento, String descricao, String data) throws RegistraOcorrenciaExceptions {
+	public String regOcorrencia (String identificacaoEquipamento) throws RegistraOcorrenciaExceptions {
 		
-		if (nomeCliente==null || identificacaoEquipamento==null || descricao==null || data==null) {
+		if (identificacaoCliente==null || identificacaoEquipamento==null || observacoes==null ) {
 			
-			throw new RegistraOcorrenciaExceptions("Os campos nome do cliente, Identificação do equipamento, descrição do defeito e data devem ser preenhidos");
+			throw new RegistraOcorrenciaExceptions("Os campos nome do cliente, Identificação do equipamento e observações devem ser preenhidos");
 		}
 		
+		
 		this.identificacaoEquipamento=identificacaoEquipamento;
-		this.descricaoDefeito=descricao;
-		this.data=data;
 		
 		Random rando=new Random();		
 	
 		System.out.println("Selecione um tipo de equipamento:");		
 		opcoesEquipamentos();		
 	
-		numeroChamado=rando.nextInt(1000);		
+		numeroChamado=rando.nextInt(1000);	
+		
+		StringBuilder s1=new StringBuilder();
+		s1.append(identificacaoCliente);
+		s1.append(";");
+		s1.append(tipoEquipamento);
+		s1.append(";");
+		s1.append(identificacaoEquipamento);
+		s1.append(";");
+		s1.append(observacoes);
+		s1.append(";");
+		s1.append(dataAbertura.format(formato));
+		s1.append(";");
+		s1.append(numeroChamado);
+		
+		return s1.toString();
 		
 	}
 	
 	@Override
-	public void opcoesEquipamentos() {
+	public String opcoesEquipamentos() throws RegistraOcorrenciaExceptions {
 		
 		Scanner in = new Scanner(System.in);
 		
@@ -64,6 +85,7 @@ public class Defeito extends Ocorrencia {
 		System.out.println("(4) - " + Constante.pf);
 		
 		opcao=in.nextInt();
+		
 		
 		if (opcao==1) {
 			tipoEquipamento=Constante.te;
@@ -87,6 +109,13 @@ public class Defeito extends Ocorrencia {
 		
 		in.close();
 		
+		if (opcao<0 || opcao>4) {
+		
+		throw new RegistraOcorrenciaExceptions("Tipo de equipamento informado inválido!");
+	}
+		
+		return tipoEquipamento;
+		
 		
 	}
 	
@@ -96,20 +125,17 @@ public class Defeito extends Ocorrencia {
 		return cliente + " ; " +  tipoEquipamento + " ; " + identificacaoEquipamento + ": " + descricaoDefeito +  " ; " + data + ";" + numeroChamado;
 		
 	}
-	public void imprimir() throws RegistraOcorrenciaExceptions {
+	public void imprimir() {
 		
-		if (opcao<0 || opcao>4) {
-			
-			throw new RegistraOcorrenciaExceptions("Tipo de equipamento informado inválido!");
-		}
-		
+				
 		System.out.println("Nome do empreendimento: "+ getCliente().getNomeCliente());
 		System.out.println("Tipo de equipamento: "+ tipoEquipamento);
-		System.out.println("IdentificaÃ§Ã£o do equipamento: "+ identificacaoEquipamento);
-		System.out.println("Descrição do defeito: "+ descricaoDefeito);
-		System.out.println("Data: "+ data);
+		System.out.println("Identificação do equipamento: "+ identificacaoEquipamento);
+		System.out.println("Descrição do defeito: "+ observacoes);
+		System.out.println("Data da abertura: "+ dataAbertura.format(formato));
 		System.out.println("Número do chamado gerado: "+ numeroChamado);
-		
+			
+	
 	}
 		
 		
