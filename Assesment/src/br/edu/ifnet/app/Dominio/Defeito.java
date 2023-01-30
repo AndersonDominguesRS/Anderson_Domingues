@@ -56,6 +56,7 @@ public class Defeito extends Ocorrencia {
 		opcoesEquipamentos();		
 	
 		numeroChamado=rando.nextInt(1000);	
+		statusChamado=true;
 		
 		StringBuilder s1=new StringBuilder();
 		s1.append(identificacaoCliente);
@@ -69,6 +70,8 @@ public class Defeito extends Ocorrencia {
 		s1.append(dataAbertura.format(formato));
 		s1.append(";");
 		s1.append(numeroChamado);
+		s1.append(";");
+		s1.append(statusChamado == true ? "CHAMADO ABERTO" : " ERRO NA ABERTURA DO CHAMADO ");
 		
 		return s1.toString();
 		

@@ -57,7 +57,7 @@ public class SolucaoTeste {
 		
 		Solucao atCorretivo2= new Solucao("NOVO SHOPPING", "TROCA DA FONTE",
 				null, 17, 13);
-		atCorretivo2.setHoraAberturaTeste(12);
+		atCorretivo2.setHoraAberturaTeste(15);
 		atCorretivo2.setHoraRecebimento(14);
 		atCorretivo2.setHoraFimAtendimento(18);
 		
@@ -70,23 +70,7 @@ public class SolucaoTeste {
 		} catch (RegistraOcorrenciaExceptions e) {
 			System.out.println("[ERROR] " + e.getMessage());
 		}
-		
-		
-		Solucao atCorretivo3= new Solucao("NOVO SHOPPING", "AJUSTE NA VELOCIDADE DA IMPRESSORA",
-				null, 12, 13);
-		atCorretivo3.setHoraAberturaTeste(12);
-		atCorretivo3.setHoraRecebimento(13);
-		atCorretivo3.setHoraInicioAtendimento(14);
-		atCorretivo3.setHoraFimAtendimento(15);
-		
-		try {
 			
-			
-			System.out.println(atCorretivo3.regOcorrencia("TERMINAL DE IMPRESSÃO"));
-		} catch (RegistraOcorrenciaExceptions e) {
-			System.out.println("[ERROR] " + e.getMessage());
-		}
-		
 
 	
 	}

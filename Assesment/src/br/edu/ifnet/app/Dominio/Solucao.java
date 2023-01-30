@@ -168,7 +168,7 @@ public class Solucao extends Ocorrencia {
 		if (horaAberturaManual>getHoraInicioAtendimento() || horaAberturaManual>getHoraRecebimento() ||
 				 getHoraRecebimento()>getHoraInicioAtendimento()) {
 			
-			throw new HorariosRecebimentoExceptions2("Horários inválidos de recebimento e inicio de atendimento inválidos");
+			throw new HorariosRecebimentoExceptions2("Horários de recebimento e inicio de atendimento inválidos");
 		}
 		
 		Scanner in = new Scanner(System.in);
