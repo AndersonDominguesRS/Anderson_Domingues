@@ -1,1 +1,0 @@
-ATIVO:cliente teste:0000000111-00:Rua dos estados:POA:RS;Brasil:94828-000
