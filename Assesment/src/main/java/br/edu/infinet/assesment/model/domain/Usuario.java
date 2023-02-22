@@ -6,6 +6,24 @@ public class Usuario {
 	private String email;
 	private String senha;
 	private String tipo;
+	private String teste="REALIZANDO UM TESTE";
+	
+	public Usuario() {
+		
+	}
+	
+	public Usuario(String email, String senha) {
+		this();
+		this.setEmail(email);
+		this.setSenha(senha);
+	}
+	
+	public Usuario(String nome, String email, String senha) {
+		this(email, senha);
+		this.setNome(nome);
+		
+	}
+	
 	
 	
 	

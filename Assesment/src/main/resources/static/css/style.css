@@ -12,4 +12,37 @@ height: calc(100% - 73px);
 .h-custom {
 height: 100%;
 }
+
 }
+
+.border-left{
+	
+	border-left: 2px solid #C0C0C0;
+}
+
+.nav{
+	
+	margin-bottom: 0px;
+	border: none;
+	border-radius: 0px;
+	background-color: #1C1C1C;
+	color: red;
+}
+
+.nav-menu{ /* Texto e navbar */
+	
+	color: white !important;
+}
+
+.menu-l { /* Menu lateral */
+
+	padding-top: 20px !important;
+	font-size: 15px;
+	list-style: none;
+
+}
+
+
+
+
+
