@@ -1,6 +1,7 @@
 package br.edu.infinet.assesment.model.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -17,7 +18,7 @@ public class AcessoController {
 	}
 	
 	@PostMapping(value="/login")
-	public String login(Usuario usuario) {
+	public String login(Model model, Usuario usuario) {
 		
 		Usuario user = new Usuario(usuario.getEmail(), usuario.getSenha());
 
@@ -25,7 +26,9 @@ public class AcessoController {
 			return "redirect:/home";
 		}
 		
-		return "redirect:/login";
+		model.addAttribute("mensagem", "As credenciais para o e-mail " + usuario.getEmail() + " estão incorretas");
+		
+		return telaLogin();
 
 	}
 }
