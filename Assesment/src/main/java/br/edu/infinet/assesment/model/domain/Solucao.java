@@ -17,6 +17,11 @@ public class Solucao extends Ocorrencia {
 	private String chamadoFechado;
 	private int horaAberturaManual=0;
 	
+	public Solucao() {
+		
+		
+	}
+	
 	
 	
 	public int getHoraAberturaTeste() {

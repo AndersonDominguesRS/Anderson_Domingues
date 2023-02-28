@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,8 +25,8 @@
 				<a class="navbar-brand" href="#">LOGOTIPO</a>
 				<div class="d-flex">
 					<a class="navbar-brand border-left" href="#"><i
-						class="bi bi-person-circle icons"></i>Olá Anderson Domingues!!!</a> <a
-						class="navbar-brand border-left" href="/"><i
+						class="bi bi-person-circle icons"></i>${usuario.nome}!!!</a> <a
+						class="navbar-brand border-left" href="/logout"><i
 						class="bi bi-box-arrow-right icons"></i>Logolf</a>
 				</div>
 			</div>
@@ -33,7 +34,7 @@
 
 	</div>
 
-	<div class="sidenav" style="padding-top: 70px">
+	<div class="sidenav">
 		<a href="/home"><i class="bi bi-house icons-sid"></i>Home</a>
 		<button class="dropdown-btn">
 			<i class="bi bi-person-lines-fill icons-sid"></i> Clientes <i
@@ -41,7 +42,11 @@
 				style="margin-left: 10px; color: white;"></i>
 		</button>
 		<div class="dropdown-container">
-			<a href="#">Novo cliente</a> <a href="#">Lista de clientes</a>
+
+			<c:if test="${usuario.tipo=='ADMINISTRADOR'}">
+				<a href="/cliente/novo">Novo cliente</a>
+			</c:if>
+			<a href="/cliente/lista">Lista de clientes</a>
 		</div>
 		<button class="dropdown-btn">
 			<i class="bi bi-people-fill icons-sid"></i> Usuários <i
@@ -49,11 +54,47 @@
 				style="margin-left: 10px; color: white;"></i>
 		</button>
 		<div class="dropdown-container">
-			<a href="/usuario/novo">Novo usuário</a> <a href="/usuario/lista">Lista
-				de usuários</a>
+			<c:if test="${usuario.tipo=='ADMINISTRADOR'}">
+				<a href="/usuario/novo">Novo usuário</a>
+			</c:if>
+			<a href="/usuario/lista">Lista de usuários</a>
 		</div>
-		<a href=""><i class="bi bi-clipboard-plus icons-sid"></i>Incidentes</a>
-		<a href=""><i class="bi bi-clipboard2-check icons-sid"></i>Atendimentos</a>
+		<button class="dropdown-btn">
+			<i class="bi bi-person-lines-fill icons-sid"></i> Tecnicos <i
+				class="bi bi-caret-down fill"
+				style="margin-left: 10px; color: white;"></i>
+		</button>
+
+		<div class="dropdown-container">
+			<c:if test="${usuario.tipo=='ADMINISTRADOR'}">
+				<a href="/tecnico/novo">Novo tecnico</a>
+			</c:if>
+			<a href="/tecnico/lista">Lista de tecnicos</a>
+		</div>
+		<button class="dropdown-btn">
+			<i class="bi bi-person-lines-fill icons-sid"></i> Incidentes <i
+				class="bi bi-caret-down fill"
+				style="margin-left: 10px; color: white;"></i>
+		</button>
+
+		<div class="dropdown-container">
+			<c:if test="${usuario.tipo=='ADMINISTRADOR'}">
+				<a href="/defeito/novo">Abertura de Incidente</a>
+			</c:if>
+			<a href="/defeito/lista">Lista de Incidentes</a>
+		</div>
+
+		<button class="dropdown-btn">
+			<i class="bi bi-person-lines-fill icons-sid"></i> Atendimento<i
+				class="bi bi-caret-down fill"
+				style="margin-left: 10px; color: white;"></i>
+		</button>
+		<div class="dropdown-container">
+			<c:if test="${usuario.tipo=='ADMINISTRADOR'}">
+				<a href="/solucao/novo">Registrar Atendimento</a>
+			</c:if>
+			<a href="/solucao/lista">Lista De Atendimentos</a>
+		</div>
 		<a href=""><i class="bi bi-envelope-plus icons-sid"></i>Contato</a> <a
 			href=""><i class="bi bi-journal-bookmark-fill icons-sid"></i>Nossa
 			história</a> <a href=""><i class="bi bi-journal-text icons-sid"></i>Documentação

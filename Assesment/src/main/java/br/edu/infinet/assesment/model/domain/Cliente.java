@@ -15,6 +15,7 @@ import br.edu.infinet.assesment.model.exceptions.CadastroClienteExceptions;
 
 public class Cliente {
 	
+	private Integer id;
 	private String statusEmpreemdimento;
 	private String nomeCliente;
 	private String cnpj; 
@@ -27,6 +28,10 @@ public class Cliente {
 	private int qtdeCadastro=0;
 	private int qtdeTotalCadastros=0;
 	
+	public Cliente () {
+		
+	}
+	
 	public Cliente (String nomeCliente_, String cnpj, String endereco, String cidade, String estado, String pais, String cep) {
 		
 		this.nomeCliente=nomeCliente_;
@@ -38,6 +43,16 @@ public class Cliente {
 		this.cep=cep;
 	}
 	
+	
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getStatusEmpreemdimento() {
 		return statusEmpreemdimento;
 	}

@@ -4,6 +4,7 @@ import br.edu.infinet.assesment.model.exceptions.RegistraOcorrenciaExceptions;
 
 abstract class Ocorrencia {
 	
+	protected Integer id;
 	protected String data=null;
 	protected String identificacaoCliente=null;
 	protected String observacoes=null;	
@@ -21,6 +22,138 @@ abstract class Ocorrencia {
 	protected int tempoRespostaInicioAtendimento=0;
 	protected String statusSla=null;
 	
+	public Ocorrencia() {
+		
+	}
+	
+	
+	
+	
+	
+	public String getData() {
+		return data;
+	}
+
+
+
+
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+
+
+
+
+	public int getOpcao() {
+		return opcao;
+	}
+
+
+
+
+
+	public void setOpcao(int opcao) {
+		this.opcao = opcao;
+	}
+
+
+
+
+
+	public void setIdentificacaoCliente(String identificacaoCliente) {
+		this.identificacaoCliente = identificacaoCliente;
+	}
+
+
+
+
+
+	public void setObservacoes(String observacoes) {
+		this.observacoes = observacoes;
+	}
+
+
+
+
+
+	public void setTipoEquipamento(String tipoEquipamento) {
+		this.tipoEquipamento = tipoEquipamento;
+	}
+
+
+
+
+
+	public void setIdentificacaoEquipamento(String identificacaoEquipamento) {
+		this.identificacaoEquipamento = identificacaoEquipamento;
+	}
+
+
+
+
+
+	public void setTipoAtendimentoRealizado(String tipoAtendimentoRealizado) {
+		this.tipoAtendimentoRealizado = tipoAtendimentoRealizado;
+	}
+
+
+
+
+
+	public void setHoraAbertura(int horaAbertura) {
+		this.horaAbertura = horaAbertura;
+	}
+
+
+
+
+
+	public void setTempoTotalAtendimento(int tempoTotalAtendimento) {
+		this.tempoTotalAtendimento = tempoTotalAtendimento;
+	}
+
+
+
+
+
+	public void setTempoRespostaAtendimento(int tempoRespostaAtendimento) {
+		this.tempoRespostaAtendimento = tempoRespostaAtendimento;
+	}
+
+
+
+
+
+	public void setTempoRespostaInicioAtendimento(int tempoRespostaInicioAtendimento) {
+		this.tempoRespostaInicioAtendimento = tempoRespostaInicioAtendimento;
+	}
+
+
+
+
+
+	public void setStatusSla(String statusSla) {
+		this.statusSla = statusSla;
+	}
+
+
+
+
+
+	public Integer getId() {
+		return id;
+	}
+
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+
 	public boolean isStatusChamado() {
 		return statusChamado;
 	}

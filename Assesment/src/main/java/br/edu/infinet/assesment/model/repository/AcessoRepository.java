@@ -9,7 +9,8 @@ public class AcessoRepository {
 		
 		if (usuario.getEmail().equalsIgnoreCase(usuario.getSenha())) {
 			
-			return new Usuario("Administrador", usuario.getEmail(), usuario.getSenha());
+			
+			return new Usuario("Administrador", usuario.getEmail(), usuario.getSenha(), "ADMINISTRADOR");
 		}
 		
 		return null;

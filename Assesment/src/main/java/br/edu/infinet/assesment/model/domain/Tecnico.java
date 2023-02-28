@@ -8,12 +8,32 @@ import br.edu.infinet.assesment.model.exceptions.CadastroTecnicoExceptions;
 
 public class Tecnico {
 	
-	
+	private Integer id;
 	private String funcaoTecnico=null;
 	private int codigoTecnico=0;
 	private String nomeTecnico=null;
 	private int opcao=0;
 	
+	public Tecnico() {
+		
+	}	
+	
+	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public int getOpcao() {
+		return opcao;
+	}
+	public void setOpcao(int opcao) {
+		this.opcao = opcao;
+	}
+	public void setCodigoTecnico(int codigoTecnico) {
+		this.codigoTecnico = codigoTecnico;
+	}
 	public String getFuncaoTecnico() {
 		return funcaoTecnico;
 	}

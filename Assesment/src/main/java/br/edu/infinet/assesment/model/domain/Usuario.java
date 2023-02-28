@@ -7,7 +7,6 @@ public class Usuario {
 	private String email;
 	private String senha;
 	private String tipo;
-	private String teste="REALIZANDO UM TESTE";
 	
 	public Usuario() {
 		
@@ -19,13 +18,12 @@ public class Usuario {
 		this.setSenha(senha);
 	}
 	
-	public Usuario(String nome, String email, String senha) {
+	public Usuario(String nome, String email, String senha, String tipo) {
 		this(email, senha);
 		this.setNome(nome);
+		this.setTipo(tipo);
 		
-	}
-	
-	
+	}	
 	
 	
 	public Integer getId() {
