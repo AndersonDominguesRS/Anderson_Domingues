@@ -4,9 +4,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import br.edu.infinet.assesment.model.domain.Cliente;
 
-
+@Repository
 public class ClienteRepository {
 
 	private static Integer id = 1;

@@ -14,6 +14,10 @@ public class Defeito extends Ocorrencia {
 	DateTimeFormatter formato = DateTimeFormatter.ofPattern("DD/MM/YYYY HH:MM:SS");	
 	private LocalDateTime dataAbertura;
 	
+	public Defeito() {
+		
+	}
+	
 	public Defeito(String identificacaoCliente, String observacoes) {
 		super(identificacaoCliente, observacoes);
 		

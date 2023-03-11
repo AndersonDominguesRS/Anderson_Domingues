@@ -3,9 +3,12 @@ package br.edu.infinet.assesment.model.repository;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.springframework.stereotype.Repository;
+
 import br.edu.infinet.assesment.model.domain.Tecnico;
 
-
+@Repository
 public class TecnicoRepository {
 
 	private static Integer id = 1;

@@ -4,9 +4,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import br.edu.infinet.assesment.model.domain.Defeito;
 
-
+@Repository
 public class DefeitoRepository {
 
 	private static Integer id = 1;

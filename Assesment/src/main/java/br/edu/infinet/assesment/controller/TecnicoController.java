@@ -1,17 +1,21 @@
-package br.edu.infinet.assesment.model.controller;
+package br.edu.infinet.assesment.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import br.edu.infinet.assesment.model.domain.Tecnico;
-import br.edu.infinet.assesment.model.repository.TecnicoRepository;
+import br.edu.infinet.assesment.model.service.TecnicoService;
 
 
 
 @Controller
 public class TecnicoController {
+	
+	@Autowired
+	private TecnicoService tecnicoService;
 	
 	public String msg;
 	
@@ -24,7 +28,9 @@ public class TecnicoController {
 	@GetMapping(value = "/tecnico/lista")
 	public String listaClient(Model model) {
 		
-		model.addAttribute("tecnicos", TecnicoRepository.obterLista());
+		model.addAttribute("tecnicos", tecnicoService.obterLista());
+		
+		model.addAttribute("mensagem", msg);
 
 		return "tecnico/listaTecnico";
 	}
@@ -32,7 +38,7 @@ public class TecnicoController {
 	@GetMapping(value = "/tecnico/{id}/excluir")
 	public String excluirTecnico(@PathVariable Integer id) {
 
-		Tecnico tecnico = TecnicoRepository.excluirTecnico(id);
+		Tecnico tecnico = tecnicoService.excluir(id);
 		
 		msg="A exclusão do tecnico " + tecnico.getNomeTecnico() + " foi realizada com sucesso!!!";
 
@@ -42,7 +48,7 @@ public class TecnicoController {
 	@PostMapping(value = "/tecnico/incluir")
 	public String incluir(Tecnico tecnico) {
 
-		TecnicoRepository.incluir(tecnico);
+		tecnicoService.incluir(tecnico);
 
 		msg = "A inclusão do usuário " + tecnico.getNomeTecnico() + " foi realizada com sucesso!!!";
 

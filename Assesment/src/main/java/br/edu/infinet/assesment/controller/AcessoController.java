@@ -1,4 +1,4 @@
-package br.edu.infinet.assesment.model.controller;
+package br.edu.infinet.assesment.controller;
 
 import javax.servlet.http.HttpSession;
 

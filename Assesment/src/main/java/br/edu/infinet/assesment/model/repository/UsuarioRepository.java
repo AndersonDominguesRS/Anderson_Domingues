@@ -4,8 +4,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import br.edu.infinet.assesment.model.domain.Usuario;
 
+@Repository
 public class UsuarioRepository {
 
 	private static Integer id = 1;
@@ -13,7 +16,7 @@ public class UsuarioRepository {
 
 	// incluir usuario
 
-	public static boolean incluir(Usuario usuario) {
+	public boolean incluir(Usuario usuario) {
 
 		usuario.setId(id++);
 
@@ -30,14 +33,14 @@ public class UsuarioRepository {
 	}
 
 	// Excluir
-	public static Usuario excluir(Integer key) {
+	public Usuario excluir(Integer key) {
 
 		return mapaUsuario.remove(key);
 	}
 
 	// obterLista
 
-	public static Collection<Usuario> obterLista() {
+	public Collection<Usuario> obterLista() {
 
 		return mapaUsuario.values();
 

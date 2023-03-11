@@ -12,7 +12,7 @@ abstract class Ocorrencia {
 	protected String tipoEquipamento=null;	
 	protected String identificacaoEquipamento=null;	
 	protected String tipoAtendimentoRealizado=null;
-	protected int horaAbertura=0;
+	protected float horaAbertura=0;
 	protected int opcao=0;
 	protected int horaRecebimento=0;
 	protected int horaInicioAtendimento=0;
@@ -206,7 +206,7 @@ abstract class Ocorrencia {
 		return tipoAtendimentoRealizado;
 	}
 
-	public int getHoraAbertura() {
+	public float getHoraAbertura() {
 		return horaAbertura;
 	}
 

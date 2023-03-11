@@ -1,4 +1,4 @@
-package br.edu.infinet.assesment.model.controller;
+package br.edu.infinet.assesment.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

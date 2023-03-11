@@ -161,7 +161,7 @@ public class Solucao extends Ocorrencia {
 		
 	}	
 	
-	public void regHorarioAtendimento(int horaAberturaTeste, int horaRecebimento, int horaInicio, int horaFim)
+	public void regHorarioAtendimento(int horaAberturaTeste, int horaRecebimento, float horaInicio, int horaFim)
 			throws HorariosInicioFimAtendimentoExceptions, HorariosRecebimentoExceptions2 {
 		
 		if (getHoraInicioAtendimento()>getHoraFimAtendimento()) {
