@@ -49,6 +49,8 @@
 						<th>Tipo Equipamento</th>
 						<th>Identificação Do Equipamento</th>
 						<th>Descrição Do Defeito</th>
+						<th>Data hora abertura</th>
+						<th>Número do chamado</th>
 						<th>Ações</th>
 					</tr>
 				</thead>
@@ -60,6 +62,8 @@
 							<td>${d.tipoEquipamento}</td>
 							<td>${d.identificacaoEquipamento}</td>
 							<td>${d.observacoes}</td>
+							<td>${d.data}</td>
+							<td>${d.numeroChamado}</td>
 							<td><a href="/defeito/${d.id}/excluir"> EXCLUIR </a></td>
 						</tr>
 					</c:forEach>

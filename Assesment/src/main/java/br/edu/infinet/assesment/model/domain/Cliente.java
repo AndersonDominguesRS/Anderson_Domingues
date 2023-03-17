@@ -5,16 +5,25 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import br.edu.infinet.assesment.model.auxiliar.Constante;
 import br.edu.infinet.assesment.model.exceptions.CadastroClienteExceptions;
 
 
-
+@Entity
+@Table(name="TCliente")
 public class Cliente {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String statusEmpreemdimento;
 	private String nomeCliente;
@@ -27,6 +36,12 @@ public class Cliente {
 	private String[] campos=null;
 	private int qtdeCadastro=0;
 	private int qtdeTotalCadastros=0;
+	
+	@ManyToOne
+	@JoinColumn(name = "idUsuario")
+	private Usuario usuario;
+	
+//	private List<String> cadastros;
 	
 	public Cliente () {
 		
@@ -45,6 +60,15 @@ public class Cliente {
 	
 	
 	
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -93,13 +117,13 @@ public class Cliente {
 		this.qtdeTotalCadastros = qtdeTotalCadastros;
 	}
 
-	public List<String> getCadastros() {
-		return cadastros;
-	}
-
-	public void setCadastros(List<String> cadastros) {
-		this.cadastros = cadastros;
-	}
+//	public List<String> getCadastros() {
+//		return cadastros;
+//	}
+//
+//	public void setCadastros(List<String> cadastros) {
+//		this.cadastros = cadastros;
+//	}
 
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
@@ -124,11 +148,6 @@ public class Cliente {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-
-
-
-	
-	List<String> cadastros = new ArrayList<String>();
 	
 	
 	public String getNome() {
@@ -164,77 +183,77 @@ public class Cliente {
 	}
 
 	
-	public void ImportaCliente() {
-		
-	
-		try {
-			
-			try {
-
-				
-				FileReader file=new FileReader(Constante.dir+Constante.arq);
-				BufferedReader leitura = new BufferedReader(file);
-				
-				String linha = leitura.readLine();
-							
-				while (linha != null ) {
-					
-					campos = linha.split(";");	
-					
-					try {
-						
-						qtdeCadastro=Integer.valueOf(campos[1]);
-						
-					} catch (Exception e) {
-						
-						String leituraCadastro=(String.format(
-								" Status do empreendimento: %s \n "
-								+ "Nome do empreendimento: %s \n "
-								+ "CNPJ	: %s \n "
-								+ "Endereço: %s \n "
-								+ "Cidade	: %s \n "
-								+ "Estado	: %s \n "
-								+ "Pais	: %s \n "
-								+ "CEP	: %s \n "
-								+ "_________________ \n "
-								+ " ", campos[0], campos[1], campos[2], campos[3], campos[4], campos[5]
-										, campos[6], campos[7]));
-						
-						cadastros.add(leituraCadastro);						
-						qtdeTotalCadastros++;							
-						
-					}
-					
-					linha= leitura.readLine();					
-				}
-				
-				if (qtdeTotalCadastros==qtdeCadastro) {
-					
-					for (String cadastro: cadastros) {
-						
-						System.out.println(cadastro);
-						}
-					
-				} else {
-					
-					System.out.println("Arquivo inválido");					
-
-				}					
-						
-				
-				leitura.close();
-				file.close();
-				
-				
-			} catch (IOException e) {
-				
-				System.out.println("[ERROR] - " + e.getMessage() );
-			}
-			
-		} finally {
-			System.out.println("Importação realizada com sucesso!");
-			}
-	}
+//	public void ImportaCliente() {
+//		
+//	
+//		try {
+//			
+//			try {
+//
+//				
+//				FileReader file=new FileReader(Constante.dir+Constante.arq);
+//				BufferedReader leitura = new BufferedReader(file);
+//				
+//				String linha = leitura.readLine();
+//							
+//				while (linha != null ) {
+//					
+//					campos = linha.split(";");	
+//					
+//					try {
+//						
+//						qtdeCadastro=Integer.valueOf(campos[1]);
+//						
+//					} catch (Exception e) {
+//						
+//						String leituraCadastro=(String.format(
+//								" Status do empreendimento: %s \n "
+//								+ "Nome do empreendimento: %s \n "
+//								+ "CNPJ	: %s \n "
+//								+ "Endereço: %s \n "
+//								+ "Cidade	: %s \n "
+//								+ "Estado	: %s \n "
+//								+ "Pais	: %s \n "
+//								+ "CEP	: %s \n "
+//								+ "_________________ \n "
+//								+ " ", campos[0], campos[1], campos[2], campos[3], campos[4], campos[5]
+//										, campos[6], campos[7]));
+//						
+//						cadastros.add(leituraCadastro);						
+//						qtdeTotalCadastros++;							
+//						
+//					}
+//					
+//					linha= leitura.readLine();					
+//				}
+//				
+//				if (qtdeTotalCadastros==qtdeCadastro) {
+//					
+//					for (String cadastro: cadastros) {
+//						
+//						System.out.println(cadastro);
+//						}
+//					
+//				} else {
+//					
+//					System.out.println("Arquivo inválido");					
+//
+//				}					
+//						
+//				
+//				leitura.close();
+//				file.close();
+//				
+//				
+//			} catch (IOException e) {
+//				
+//				System.out.println("[ERROR] - " + e.getMessage() );
+//			}
+//			
+//		} finally {
+//			System.out.println("Importação realizada com sucesso!");
+//			}
+//	}
 	
 	
 	public void cadastroCliente() throws CadastroClienteExceptions {

@@ -40,7 +40,7 @@ public class ClienteTest {
 		
 		
 		
-		c1.ImportaCliente();
+//		c1.ImportaCliente();
 		
 		c1.ImportaClienteAtivo();
 		

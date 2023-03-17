@@ -1,21 +1,24 @@
 package br.edu.infinet.assesment.model.domain;
 
 import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
+import java.time.temporal.ChronoUnit;
 
 import br.edu.infinet.assesment.model.auxiliar.Constante;
 import br.edu.infinet.assesment.model.exceptions.HorariosInicioFimAtendimentoExceptions;
-import br.edu.infinet.assesment.model.exceptions.HorariosRecebimentoExceptions2;
 import br.edu.infinet.assesment.model.exceptions.RegistraOcorrenciaExceptions;
 
 public class Solucao extends Ocorrencia {
 	
-	DateTimeFormatter formato = DateTimeFormatter.ofPattern("DD/MM/YYYY HH:MM:SS");	
+	static DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");	
 	private LocalDateTime dataFechamento=null;
 	private String peca=null;
 	private String chamadoFechado;
 	private int horaAberturaManual=0;
+	private int testeData1;
+	private int testeData2;
+	private int testeData3;
 	
 	public Solucao() {
 		
@@ -33,7 +36,7 @@ public class Solucao extends Ocorrencia {
 	}
 
 	public Solucao( String identificacaoCliente, String observacoes, String pecaInformada,
-			int horaInicioAtendimento, int horaFinalAtendimento){
+			String horaInicioAtendimento, String horaFinalAtendimento){
 		
 		super(identificacaoCliente, observacoes);
 		
@@ -57,7 +60,7 @@ public class Solucao extends Ocorrencia {
 		
 
 		
-		if (horaAberturaManual==0 || horaRecebimento==0) {
+		if (horaAberturaManual==0 || horaRecebimento!= null) {
 			
 			tipoAtendimentoRealizado=Constante.preventivo;	
 			
@@ -70,13 +73,12 @@ public class Solucao extends Ocorrencia {
 			
 		}
 		
-		else if (horaRecebimento>0) {
+		else if (horaRecebimento!= null) {
 			
 			try {
-				regHorarioAtendimento( horaAberturaManual, 
-						horaFimAtendimento, horaAbertura, horaRecebimento);
+				regHorarioAtendimento( horaFimAtendimento, horaRecebimento);
 								
-			} catch (HorariosInicioFimAtendimentoExceptions | HorariosRecebimentoExceptions2 e) {
+			} catch (HorariosInicioFimAtendimentoExceptions e) {
 				System.out.println("[ERROR] " + e.getMessage());
 			}
 			
@@ -92,130 +94,159 @@ public class Solucao extends Ocorrencia {
 	}
 	
 	
-	@Override
-	public String opcoesEquipamentos() {
-		
-		Scanner in = new Scanner(System.in);
-		
-		System.out.println("(1) - " + Constante.te);
-		System.out.println("(2) - " + Constante.ts);
-		System.out.println("(3) - " + Constante.ca);
-		System.out.println("(4) - " + Constante.pf);
-		
-		opcao=in.nextInt();
-		
-		if (opcao==1) {
-			tipoEquipamento=Constante.te;
-		}
-		else if (opcao==2) {
-			tipoEquipamento=Constante.ts;
-			
-		}
-		else if (opcao==3) {
-			tipoEquipamento=Constante.ca;
-			
-		}
-		else if (opcao==4) {
-			tipoEquipamento=Constante.pf;
-			
-		}
-		else  {
-			System.out.println("Opcao invalida!");
-			
-		}
-		
-		
-		
-		return tipoEquipamento;
-		
-		
-	}
+//	@Override
+//	public String opcoesEquipamentos() {
+//		
+//		Scanner in = new Scanner(System.in);
+//		
+//		System.out.println("(1) - " + Constante.te);
+//		System.out.println("(2) - " + Constante.ts);
+//		System.out.println("(3) - " + Constante.ca);
+//		System.out.println("(4) - " + Constante.pf);
+//		
+//		opcao=in.nextInt();
+//		
+//		if (opcao==1) {
+//			tipoEquipamento=Constante.te;
+//		}
+//		else if (opcao==2) {
+//			tipoEquipamento=Constante.ts;
+//			
+//		}
+//		else if (opcao==3) {
+//			tipoEquipamento=Constante.ca;
+//			
+//		}
+//		else if (opcao==4) {
+//			tipoEquipamento=Constante.pf;
+//			
+//		}
+//		else  {
+//			System.out.println("Opcao invalida!");
+//			
+//		}
+//		
+//		
+//		
+//		return tipoEquipamento;
+//		
+//		
+//	}
 	
-	public void regHorarioAtendimento(int horaInicio, int horaFim) throws HorariosInicioFimAtendimentoExceptions {
+	public void regHorarioAtendimento(String horaInicio, String horaFim) throws HorariosInicioFimAtendimentoExceptions {	
 		
-		if (horaInicioAtendimento>horaFimAtendimento) {
+		
+		try {
 			
+			testeData1= Integer.parseInt (ChronoUnit.MINUTES.between(LocalDateTime.parse(data),
+					LocalDateTime.parse(horaRecebimento)) + "");
+			testeData2=  Integer.parseInt (ChronoUnit.MINUTES.between(LocalDateTime.parse(horaRecebimento),
+							LocalDateTime.parse(horaInicioAtendimento)) + "");
+			testeData3=	Integer.parseInt (ChronoUnit.MINUTES.between(LocalDateTime.parse(horaInicioAtendimento),
+							LocalDateTime.parse(horaFimAtendimento)) + "");		
+
+			
+			if (testeData1<0  || testeData2<0  || testeData3<0) {
+				
+				throw new HorariosInicioFimAtendimentoExceptions("Horários inicio e fim inválidos");
+			}
+			
+			tempoTotalAtendimento= ChronoUnit.MINUTES.between(LocalDateTime.parse(horaRecebimento),
+					LocalDateTime.parse(horaFimAtendimento)) + "";
+			statusSla=(Integer.parseInt(tempoTotalAtendimento)>120? "VIOLADO" : "OK");
+			
+			data=LocalDateTime.parse(data).format(formato).toString();
+			horaRecebimento=LocalDateTime.parse(horaRecebimento).format(formato).toString();
+			horaInicioAtendimento=LocalDateTime.parse(horaInicioAtendimento).format(formato).toString();
+			horaFimAtendimento=LocalDateTime.parse(horaFimAtendimento).format(formato).toString();
+			
+					
+			StringBuilder s1=new StringBuilder();
+			s1.append(identificacaoCliente);
+			s1.append(";");
+			s1.append(identificacaoEquipamento);
+			s1.append(";");
+			s1.append(tipoAtendimentoRealizado);
+			s1.append(";");
+			s1.append(horaInicioAtendimento);
+			s1.append(";");
+			s1.append(horaFimAtendimento);
+			s1.append(";");
+			s1.append(tempoTotalAtendimento);
+			s1.append(";");
+			s1.append(data);
+			
+			chamadoFechado=s1.toString();
+			
+			
+			
+		} catch (Exception e) {
+
 			throw new HorariosInicioFimAtendimentoExceptions("Horários inicio e fim inválidos");
 		}
 		
-		tempoTotalAtendimento=horaFimAtendimento-horaInicioAtendimento;
-		
-		StringBuilder s1=new StringBuilder();
-		s1.append(identificacaoCliente);
-		s1.append(";");
-		s1.append(identificacaoEquipamento);
-		s1.append(";");
-		s1.append(tipoAtendimentoRealizado);
-		s1.append(";");
-		s1.append(horaInicioAtendimento);
-		s1.append(";");
-		s1.append(horaFimAtendimento);
-		s1.append(";");
-		s1.append(tempoTotalAtendimento);
-		s1.append(";");
-		s1.append(dataFechamento.format(formato));
-		
-		chamadoFechado=s1.toString();
+
+
 		
 
 		
 	}	
 	
-	public void regHorarioAtendimento(int horaAberturaTeste, int horaRecebimento, float horaInicio, int horaFim)
-			throws HorariosInicioFimAtendimentoExceptions, HorariosRecebimentoExceptions2 {
-		
-		if (getHoraInicioAtendimento()>getHoraFimAtendimento()) {
-			
-			throw new HorariosInicioFimAtendimentoExceptions("Hotários inicio e fim inválidos");
-		}
-		
-	
-		if (horaAberturaManual>getHoraInicioAtendimento() || horaAberturaManual>getHoraRecebimento() ||
-				 getHoraRecebimento()>getHoraInicioAtendimento()) {
-			
-			throw new HorariosRecebimentoExceptions2("Horários de recebimento e inicio de atendimento inválidos");
-		}
-		
-		Scanner in = new Scanner(System.in);
-		
-		System.out.println("Selecione um tipo de equipamento:");		
-		opcoesEquipamentos();		
-		tipoAtendimentoRealizado=Constante.corretivo;
-
-		
-		tempoTotalAtendimento=horaFimAtendimento-horaInicioAtendimento;
-		tempoRespostaAtendimento=getHoraRecebimento() - horaAberturaManual;
-		tempoRespostaInicioAtendimento=getHoraInicioAtendimento()-horaAberturaManual;	
-		
-		StringBuilder s2=new StringBuilder();
-		s2.append(identificacaoCliente);
-		s2.append(";");
-		s2.append(tipoAtendimentoRealizado);
-		s2.append(";");
-		s2.append(tipoEquipamento);
-		s2.append(";");
-		s2.append(identificacaoEquipamento);
-		s2.append(";");
-		s2.append(horaAberturaManual);
-		s2.append(";");
-		s2.append(horaRecebimento);
-		s2.append(";");		
-		s2.append(horaInicioAtendimento);
-		s2.append(";");
-		s2.append(horaFimAtendimento);
-		s2.append(";");
-		s2.append(tempoTotalAtendimento);
-		s2.append(";");
-		s2.append(tempoRespostaAtendimento);
-		s2.append(";");
-		s2.append(tempoRespostaInicioAtendimento);
-		s2.append(";");
-		s2.append(dataFechamento.format(formato));
-		
-		
-		chamadoFechado=s2.toString();
-		
-	}
+//	public void regHorarioAtendimento(int horaAberturaTeste, String horaRecebimento, float horaInicio, String horaFim)
+//			throws HorariosInicioFimAtendimentoExceptions, HorariosRecebimentoExceptions2 {
+//		
+//		if (getHoraInicioAtendimento()!=null) {
+//			
+//			throw new HorariosInicioFimAtendimentoExceptions("Hotários inicio e fim inválidos");
+//		}
+//		
+//	
+//		if (horaAberturaManual>getHoraInicioAtendimento() || horaAberturaManual>getHoraRecebimento() ||
+//				 getHoraRecebimento()>getHoraInicioAtendimento()) {
+//			
+//			throw new HorariosRecebimentoExceptions2("Horários de recebimento e inicio de atendimento inválidos");
+//		}
+//		
+//		Scanner in = new Scanner(System.in);
+//		
+//		System.out.println("Selecione um tipo de equipamento:");		
+////		opcoesEquipamentos();		
+//		tipoAtendimentoRealizado=Constante.corretivo;
+//
+//		
+////		tempoTotalAtendimento=horaFimAtendimento-horaInicioAtendimento;
+//		tempoRespostaAtendimento=getHoraRecebimento() - horaAberturaManual;
+//		tempoRespostaInicioAtendimento=getHoraInicioAtendimento()-horaAberturaManual;	
+//		
+//		StringBuilder s2=new StringBuilder();
+//		s2.append(identificacaoCliente);
+//		s2.append(";");
+//		s2.append(tipoAtendimentoRealizado);
+//		s2.append(";");
+//		s2.append(tipoEquipamento);
+//		s2.append(";");
+//		s2.append(identificacaoEquipamento);
+//		s2.append(";");
+//		s2.append(horaAberturaManual);
+//		s2.append(";");
+//		s2.append(horaRecebimento);
+//		s2.append(";");		
+//		s2.append(horaInicioAtendimento);
+//		s2.append(";");
+//		s2.append(horaFimAtendimento);
+//		s2.append(";");
+//		s2.append(tempoTotalAtendimento);
+//		s2.append(";");
+//		s2.append(tempoRespostaAtendimento);
+//		s2.append(";");
+//		s2.append(tempoRespostaInicioAtendimento);
+//		s2.append(";");
+//		s2.append(dataFechamento.format(formato));
+//		
+//		
+//		chamadoFechado=s2.toString();
+//		
+//	}
 	
 	public void imprimirPreventivo() {
 		
@@ -247,6 +278,21 @@ public class Solucao extends Ocorrencia {
 		
 		
 	}
+	
+	public void registraHorarioTeste() {
+		
+		tempoTotalAtendimento= ChronoUnit.MINUTES.between(LocalDateTime.parse(horaRecebimento), LocalDateTime.parse(horaFimAtendimento)) + "";
+		
+		statusSla=(Integer.parseInt(tempoTotalAtendimento)>120? "VIOLADO" : "OK");
+		
+		data=LocalDateTime.parse(data).format(formato).toString();
+		horaRecebimento=LocalDateTime.parse(horaRecebimento).format(formato).toString();
+		horaInicioAtendimento=LocalDateTime.parse(horaInicioAtendimento).format(formato).toString();
+		horaFimAtendimento=LocalDateTime.parse(horaFimAtendimento).format(formato).toString();		
+
+		
+	}
+
 		
 
 }

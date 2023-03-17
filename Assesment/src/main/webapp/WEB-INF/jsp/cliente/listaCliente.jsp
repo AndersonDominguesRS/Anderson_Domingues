@@ -52,6 +52,7 @@
 						<th>Estado</th>
 						<th>Pais</th>
 						<th>Cep</th>
+						<th>Usuario</th>
 						<th>Ações</th>
 					</tr>
 				</thead>
@@ -66,6 +67,7 @@
 							<td>${c.estado}</td>
 							<td>${c.pais}</td>
 							<td>${c.cep}</td>
+							<td>${c.usuario.nome}</td>
 							<td><a href="/cliente/${c.id}/excluir"> EXCLUIR </a></td>
 						</tr>
 					</c:forEach>

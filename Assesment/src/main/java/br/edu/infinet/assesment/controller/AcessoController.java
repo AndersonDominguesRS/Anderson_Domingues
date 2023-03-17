@@ -2,6 +2,7 @@ package br.edu.infinet.assesment.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +11,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import br.edu.infinet.assesment.model.domain.Usuario;
-import br.edu.infinet.assesment.model.repository.AcessoRepository;
+import br.edu.infinet.assesment.model.service.UsuarioService;
 
 @Controller
 @SessionAttributes("usuario")
 public class AcessoController {
+	
+	@Autowired
+	private UsuarioService usuarioService;
 
 	
 	@GetMapping(value="/login")
@@ -26,10 +30,10 @@ public class AcessoController {
 	public String login(Model model, Usuario usuario) {
 		
 		Usuario user = new Usuario(usuario.getEmail(), usuario.getSenha());
-		
-		user = AcessoRepository.autenticar(user);
+				
+		user = usuarioService.autenticar(user);
 
-		if(AcessoRepository.autenticar(user) != null) {
+		if(user != null) {
 			
 			model.addAttribute("usuario", user);
 			return "redirect:/home";

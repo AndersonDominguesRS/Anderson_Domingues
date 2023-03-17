@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import br.edu.infinet.assesment.model.domain.Solucao;
-import br.edu.infinet.assesment.model.repository.SolucaoRepository;
 import br.edu.infinet.assesment.model.service.SolucaoService;
 
 
@@ -20,6 +19,7 @@ public class SolucaoController {
 	private SolucaoService solucaoService;
 	
 	public String msg;
+	public String msg2;
 	
 	@GetMapping(value = "/solucao/novo")
 	public String telaSolucaoNovo() {
@@ -31,6 +31,9 @@ public class SolucaoController {
 	public String listaSolucao(Model model) {
 		
 		model.addAttribute("solucoes", solucaoService.obterLista());
+		
+		model.addAttribute("mensagem2", msg2);
+		model.addAttribute("mensagem", msg);
 
 		return "solucao/listaSolucao";
 	}
@@ -47,7 +50,22 @@ public class SolucaoController {
 	@PostMapping(value = "/solucao/incluir")
 	public String incluir(Solucao solucao) {
 
+
 		solucaoService.incluir(solucao);
+		
+		msg=null;
+		msg2=null;
+		
+		if (solucao.getTempoTotalAtendimento() !=null) {
+			
+			msg = "Última inclusão realizada com sucesso!!!";
+		}else {
+			msg2 = "Erro na útlima tentativa de inclusão";
+		}
+		
+			
+			
+		
 
 		return "redirect:/home";
 

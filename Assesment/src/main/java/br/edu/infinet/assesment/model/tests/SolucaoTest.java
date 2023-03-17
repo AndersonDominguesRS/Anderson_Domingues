@@ -9,11 +9,11 @@ public class SolucaoTest {
 		
 		
 		Solucao atPreventivo1= new Solucao("NOVO SHOPPING", "REALIZADO MANUTENÇÃO PREVENTIVA",
-				null, 12, 13);
+				null, null, null);
 		Solucao atPreventivo2= new Solucao(null, "REALIZADO MANUTENÇÃO PREVENTIVA",
-				null, 12, 13);
+				null, null, null);
 		Solucao atPreventivo3= new Solucao("NOVO SHOPPING", null,
-				null, 12, 13);
+				null, null, null);
 		
 		try {
 			System.out.println(atPreventivo1.regOcorrencia("IMPRESSORA ESTOQUE"));
@@ -36,12 +36,12 @@ public class SolucaoTest {
 		System.out.println("----------------------------------");
 		
 		Solucao atCorretivo1= new Solucao("NOVO SHOPPING", "AJUSTE NA VELOCIDADE DA IMPRESSORA",
-				null, 12, 13);
+				null, null, null);
 		
 		atCorretivo1.setHoraAberturaTeste(12);
-		atCorretivo1.setHoraRecebimento(13);
-		atCorretivo1.setHoraInicioAtendimento(14);
-		atCorretivo1.setHoraFimAtendimento(15);
+//		atCorretivo1.setHoraRecebimento(13);
+//		atCorretivo1.setHoraInicioAtendimento(14);
+//		atCorretivo1.setHoraFimAtendimento(15);
 				
 		
 		try {
@@ -56,10 +56,10 @@ public class SolucaoTest {
 		
 		
 		Solucao atCorretivo2= new Solucao("NOVO SHOPPING", "TROCA DA FONTE",
-				null, 17, 13);
+				null, null, null);
 		atCorretivo2.setHoraAberturaTeste(15);
-		atCorretivo2.setHoraRecebimento(14);
-		atCorretivo2.setHoraFimAtendimento(18);
+//		atCorretivo2.setHoraRecebimento(14);
+//		atCorretivo2.setHoraFimAtendimento(18);
 		
 		try {
 			

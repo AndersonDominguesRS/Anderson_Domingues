@@ -1,11 +1,18 @@
 package br.edu.infinet.assesment.model.domain;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import br.edu.infinet.assesment.model.exceptions.RegistraOcorrenciaExceptions;
 
 abstract class Ocorrencia {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
 	protected String data=null;
+	protected String hora=null;
 	protected String identificacaoCliente=null;
 	protected String observacoes=null;	
 	protected boolean statusChamado=false;
@@ -14,10 +21,10 @@ abstract class Ocorrencia {
 	protected String tipoAtendimentoRealizado=null;
 	protected float horaAbertura=0;
 	protected int opcao=0;
-	protected int horaRecebimento=0;
-	protected int horaInicioAtendimento=0;
-	protected int horaFimAtendimento=0;
-	protected int tempoTotalAtendimento=0;
+	protected String horaRecebimento=null;
+	protected String horaInicioAtendimento=null;
+	protected String horaFimAtendimento=null;
+	protected String tempoTotalAtendimento=null;
 	protected int tempoRespostaAtendimento=0;
 	protected int tempoRespostaInicioAtendimento=0;
 	protected String statusSla=null;
@@ -110,7 +117,7 @@ abstract class Ocorrencia {
 
 
 
-	public void setTempoTotalAtendimento(int tempoTotalAtendimento) {
+	public void setTempoTotalAtendimento(String tempoTotalAtendimento) {
 		this.tempoTotalAtendimento = tempoTotalAtendimento;
 	}
 
@@ -162,27 +169,27 @@ abstract class Ocorrencia {
 		this.statusChamado = statusChamado;
 	}
 
-	public int getHoraRecebimento() {
+	public String getHoraRecebimento() {
 		return horaRecebimento;
 	}
 
-	public void setHoraRecebimento(int horaRecebimento) {
+	public void setHoraRecebimento(String horaRecebimento) {
 		this.horaRecebimento = horaRecebimento;
 	}
 
-	public int getHoraInicioAtendimento() {
+	public String getHoraInicioAtendimento() {
 		return horaInicioAtendimento;
 	}
 
-	public void setHoraInicioAtendimento(int horaInicioAtendimento) {
+	public void setHoraInicioAtendimento(String horaInicioAtendimento) {
 		this.horaInicioAtendimento = horaInicioAtendimento;
 	}
 
-	public int getHoraFimAtendimento() {
+	public String getHoraFimAtendimento() {
 		return horaFimAtendimento;
 	}
 
-	public void setHoraFimAtendimento(int horaFimAtendimento) {
+	public void setHoraFimAtendimento(String horaFimAtendimento) {
 		this.horaFimAtendimento = horaFimAtendimento;
 	}
 
@@ -210,7 +217,7 @@ abstract class Ocorrencia {
 		return horaAbertura;
 	}
 
-	public int getTempoTotalAtendimento() {
+	public String getTempoTotalAtendimento() {
 		return tempoTotalAtendimento;
 	}
 
@@ -235,7 +242,7 @@ abstract class Ocorrencia {
 	}
 	
 	public abstract String regOcorrencia( String identificacaoEquipamento) throws RegistraOcorrenciaExceptions;	
-	public abstract String opcoesEquipamentos() throws RegistraOcorrenciaExceptions;
+//	public abstract String opcoesEquipamentos() throws RegistraOcorrenciaExceptions;
 	
 
 }

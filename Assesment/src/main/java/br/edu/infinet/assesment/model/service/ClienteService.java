@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.infinet.assesment.model.domain.Cliente;
+import br.edu.infinet.assesment.model.domain.Usuario;
 import br.edu.infinet.assesment.model.repository.ClienteRepository;
 
 @Service
@@ -14,19 +15,27 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
-	public boolean incluir (Cliente cliente) {
+	public Cliente incluir (Cliente cliente) {
 		
-		return clienteRepository.incluir(cliente);
+
+		return clienteRepository.save(cliente);
 	}
 	
-	public Cliente excluirCliente (Integer key) {
+	public void excluirCliente (Integer key) {
 		
-		return clienteRepository.excluirCliente(key);
+
+		clienteRepository.deleteById(key);
+		
 	}
 	
 	public Collection<Cliente> obterLista(){
 		
-		return clienteRepository.obterLista();
+
+		return (Collection<Cliente>) clienteRepository.findAll();
+	}
+	
+	public Collection<Cliente> obterLista(Usuario usuario){
+		return clienteRepository.obterLista(usuario.getId());
 	}
 
 }

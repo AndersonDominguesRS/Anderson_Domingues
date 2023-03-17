@@ -45,6 +45,10 @@ public class SolucaoLoader implements ApplicationRunner {
 					solucao.setObservacoes(campos[1]);
 					solucao.setTipoEquipamento(campos[2]);
 					solucao.setIdentificacaoEquipamento(campos[3]);
+					solucao.setData(campos[4]);
+					solucao.setHoraRecebimento(campos[5]);
+					solucao.setHoraInicioAtendimento(campos[6]);
+					solucao.setHoraFimAtendimento(campos[7]);
 					
 					solucaoService.incluir(solucao);
 										

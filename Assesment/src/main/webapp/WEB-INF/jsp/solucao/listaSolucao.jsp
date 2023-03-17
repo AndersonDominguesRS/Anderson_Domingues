@@ -28,6 +28,12 @@
 			</div>
 		</c:if>
 
+		<c:if test="${not empty mensagem2}">
+			<div class="alert alert-danger">
+				<strong></strong> ${mensagem2}
+			</div>
+		</c:if>
+
 		<c:if test="${ empty solucoes}">
 
 			<h5 style="text-align: center; margin-top: 50px">
@@ -48,6 +54,12 @@
 						<th>Nome Empreendimento</th>
 						<th>Tipo Equipamento</th>
 						<th>Identificação Do Equipamento</th>
+						<th>Hora abertura chamado</th>
+						<th>Hora recebimento chamado</th>
+						<th>Hora inicio atendimento</th>
+						<th>Hora final do atendimento</th>
+						<th>Tempo total de atendimento</th>
+						<th>Status do SLA</th>
 						<th>Descrição Do Atendimento</th>
 						<th>Ações</th>
 					</tr>
@@ -59,6 +71,12 @@
 							<td>${s.identificacaoCliente}</td>
 							<td>${s.tipoEquipamento}</td>
 							<td>${s.identificacaoEquipamento}</td>
+							<td>${s.data}</td>
+							<td>${s.horaRecebimento}</td>
+							<td>${s.horaInicioAtendimento}</td>
+							<td>${s.horaFimAtendimento}</td>
+							<td>${s.tempoTotalAtendimento}min</td>
+							<td>${s.statusSla}</td>
 							<td>${s.observacoes}</td>
 							<td><a href="/solucao/${s.id}/excluir"> EXCLUIR </a></td>
 						</tr>
