@@ -38,7 +38,6 @@ public class SolucaoTest {
 		Solucao atCorretivo1= new Solucao("NOVO SHOPPING", "AJUSTE NA VELOCIDADE DA IMPRESSORA",
 				null, null, null);
 		
-		atCorretivo1.setHoraAberturaTeste(12);
 //		atCorretivo1.setHoraRecebimento(13);
 //		atCorretivo1.setHoraInicioAtendimento(14);
 //		atCorretivo1.setHoraFimAtendimento(15);
@@ -57,7 +56,6 @@ public class SolucaoTest {
 		
 		Solucao atCorretivo2= new Solucao("NOVO SHOPPING", "TROCA DA FONTE",
 				null, null, null);
-		atCorretivo2.setHoraAberturaTeste(15);
 //		atCorretivo2.setHoraRecebimento(14);
 //		atCorretivo2.setHoraFimAtendimento(18);
 		

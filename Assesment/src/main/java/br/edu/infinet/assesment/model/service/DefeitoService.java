@@ -14,19 +14,24 @@ public class DefeitoService {
 	@Autowired
 	private DefeitoRepository defeitoRepository;
 	
-	public boolean incluir (Defeito defeito) {
+	public Defeito incluir (Defeito defeito) {
 		
-		return defeitoRepository.incluir(defeito);
+		return defeitoRepository.save(defeito);
 	}
 	
-	public Defeito excluirDefeito (Integer key) {
+	public void excluirDefeito (Integer key) {
 		
-		return defeitoRepository.excluirDefeito(key);
+		 defeitoRepository.deleteById(key);
 	}
 	
 	public Collection<Defeito> obterLista(){
 		
-		return defeitoRepository.obterLista();
+		return (Collection<Defeito>) defeitoRepository.findAll();
+	}
+	
+	public Defeito obterListaId( Integer id){
+		
+		return  defeitoRepository.findById(id).orElse(null);
 	}
 
 }

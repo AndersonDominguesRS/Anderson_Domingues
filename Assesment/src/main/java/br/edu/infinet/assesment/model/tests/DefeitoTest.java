@@ -1,9 +1,5 @@
 package br.edu.infinet.assesment.model.tests;
 
-import br.edu.infinet.assesment.model.domain.Cliente;
-import br.edu.infinet.assesment.model.domain.Defeito;
-import br.edu.infinet.assesment.model.exceptions.RegistraOcorrenciaExceptions;
-
 public class DefeitoTest {
 	
 	public static void main(String[] args) {

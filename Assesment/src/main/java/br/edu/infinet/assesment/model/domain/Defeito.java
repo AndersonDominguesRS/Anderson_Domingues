@@ -4,27 +4,41 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import br.edu.infinet.assesment.model.exceptions.RegistraOcorrenciaExceptions;
 
 
+@Entity
+@Table(name="TDefeito")
 public class Defeito extends Ocorrencia {
 	
-	DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm");	
-
+	static DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm");
+	
+	int numeroChamado = 0;
 	private LocalDateTime dataAbertura;
-	
+	private String contatoCliente;
+	private String defeito;
+
 	public Defeito() {
-		
+
 	}
-	
+
 	public Defeito(String identificacaoCliente, String observacoes) {
 		super(identificacaoCliente, observacoes);
-		
-		dataAbertura =LocalDateTime.now();
-		
-		
 
 	}
+
+
+	public String getDefeito() {
+		return defeito;
+	}
+
+	public void setDefeito(String defeito) {
+		this.defeito = defeito;
+	}
+
 	public LocalDateTime getDataAbertura() {
 		return dataAbertura;
 	}
@@ -32,45 +46,43 @@ public class Defeito extends Ocorrencia {
 	public void setDataAbertura(LocalDateTime dataAbertura) {
 		this.dataAbertura = dataAbertura;
 	}
-	private int numeroChamado=0; 
-	private String descricaoDefeito=null;
-	private Cliente cliente;
-	
-	
-	public Cliente getCliente() {
-		return cliente;
+
+	public String getContatoCliente() {
+		return contatoCliente;
 	}
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+
+	public void setContatoCliente(String contatoCliente) {
+		this.contatoCliente = contatoCliente;
 	}
+
 	public int getNumeroChamado() {
 		return numeroChamado;
 	}
 
-	public String getDescricaoDefeito() {
-		return descricaoDefeito;
+	public void setNumeroChamado(int numeroChamado) {
+		this.numeroChamado = numeroChamado;
 	}
 
-		
 	@Override
-	public String regOcorrencia (String identificacaoEquipamento) throws RegistraOcorrenciaExceptions {
-		
-		dataAbertura =LocalDateTime.now();
-		
-		if (identificacaoCliente==null || identificacaoEquipamento==null || observacoes==null ) {
-			
-			throw new RegistraOcorrenciaExceptions("Os campos nome do cliente, Identificação do equipamento e observações devem ser preenhidos");
-		}
-		
+	public String regOcorrencia(String identificacaoEquipamento) throws RegistraOcorrenciaExceptions {
 
-		
-		Random rando=new Random();		
-	
-		numeroChamado=rando.nextInt(1000);	
-		statusChamado=true;		
-		data=dataAbertura.format(formato);
-		
-		StringBuilder s1=new StringBuilder();
+
+
+		dataAbertura = LocalDateTime.now();
+
+		if (identificacaoCliente == null || identificacaoEquipamento == null || observacoes == null) {
+
+			throw new RegistraOcorrenciaExceptions(
+					"Os campos nome do cliente, Identificação do equipamento e observações devem ser preenhidos");
+		}
+
+		Random rando = new Random();
+
+		numeroChamado = rando.nextInt(1000);
+		statusChamado = true;
+		data = dataAbertura.format(formato);
+
+		StringBuilder s1 = new StringBuilder();
 		s1.append(identificacaoCliente);
 		s1.append(";");
 		s1.append(tipoEquipamento);
@@ -84,31 +96,28 @@ public class Defeito extends Ocorrencia {
 		s1.append(numeroChamado);
 		s1.append(";");
 		s1.append(statusChamado == true ? "CHAMADO ABERTO" : " ERRO NA ABERTURA DO CHAMADO ");
-		
+
 		return s1.toString();
-		
+
 	}
-	
-	
+
 	@Override
 	public String toString() {
-		
-		return cliente + " ; " +  tipoEquipamento + " ; " + identificacaoEquipamento + ": " + descricaoDefeito +  " ; " + data + ";" + numeroChamado;
-		
+
+		return //cliente + " ; " + 
+				tipoEquipamento + " ; " + identificacaoEquipamento + ": " + observacoes + " ; "
+				+ data + ";" + numeroChamado;
+
 	}
+
 	public void imprimir() {
-		
-				
-		System.out.println("Nome do empreendimento: "+ getCliente().getNomeCliente());
-		System.out.println("Tipo de equipamento: "+ tipoEquipamento);
-		System.out.println("Identificação do equipamento: "+ identificacaoEquipamento);
-		System.out.println("Descrição do defeito: "+ observacoes);
-		System.out.println("Data da abertura: "+ dataAbertura.format(formato));
-		System.out.println("Número do chamado gerado: "+ numeroChamado);
-			
-	
+
+//		System.out.println("Nome do empreendimento: " + getCliente().getNomeCliente());
+		System.out.println("Tipo de equipamento: " + tipoEquipamento);
+		System.out.println("Identificação do equipamento: " + identificacaoEquipamento);
+		System.out.println("Descrição do defeito: " + observacoes);
+		System.out.println("Número do chamado gerado: " + numeroChamado);
+
 	}
-		
-		
 
 }

@@ -41,7 +41,7 @@ public class SolucaoController {
 	@GetMapping(value = "/solucao/{id}/excluir")
 	public String excluirSolucao(@PathVariable Integer id) {
 
-		Solucao solucao = solucaoService.excluir(id);
+		solucaoService.excluirSolucao(id);
 		
 
 		return "redirect:/solucao/lista";
@@ -61,10 +61,7 @@ public class SolucaoController {
 			msg = "Última inclusão realizada com sucesso!!!";
 		}else {
 			msg2 = "Erro na útlima tentativa de inclusão";
-		}
-		
-			
-			
+		}			
 		
 
 		return "redirect:/home";

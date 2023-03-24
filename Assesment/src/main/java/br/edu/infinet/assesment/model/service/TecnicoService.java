@@ -14,19 +14,24 @@ public class TecnicoService {
 	@Autowired
 	private TecnicoRepository tecnicoRepository;
 	
-	public boolean incluir (Tecnico tecnico) {
+	public Tecnico incluir (Tecnico tecnico) {
 		
-		return tecnicoRepository.incluir(tecnico);
+		return tecnicoRepository.save(tecnico);
 	}
 	
-	public Tecnico excluir (Integer key) {
+	public void excluirTecnico (Integer key) {
 		
-		return tecnicoRepository.excluirTecnico(key);
+		tecnicoRepository.deleteById(key);
 	}
 	
 	public Collection<Tecnico> obterLista(){
 		
-		return tecnicoRepository.obterLista();
+		return (Collection<Tecnico>) tecnicoRepository.findAll();
+	}
+	
+	public Tecnico obterListaId( Integer id){
+		
+		return  tecnicoRepository.findById(id).orElse(null);
 	}
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.infinet.assesment.model.domain.Solucao;
+import br.edu.infinet.assesment.model.exceptions.HorariosInicioFimAtendimentoExceptions;
 import br.edu.infinet.assesment.model.repository.SolucaoRepository;
 
 @Service
@@ -14,19 +15,31 @@ public class SolucaoService {
 	@Autowired
 	private SolucaoRepository solucaoRepository;
 	
-	public boolean incluir (Solucao solucao) {
+	public Solucao incluir (Solucao solucao) {
 		
-		return solucaoRepository.incluir(solucao);
+		try {
+			solucao.regHorarioAtendimento(solucao.getHoraInicioAtendimento(), solucao.getHoraFimAtendimento());
+		} catch (HorariosInicioFimAtendimentoExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return solucaoRepository.save(solucao);
 	}
 	
-	public Solucao excluir (Integer key) {
+	public void excluirSolucao (Integer key) {
 		
-		return solucaoRepository.excluirSolucao(key);
+		solucaoRepository.deleteById(key);
 	}
 	
 	public Collection<Solucao> obterLista(){
 		
-		return solucaoRepository.obterLista();
+		return (Collection<Solucao>) solucaoRepository.findAll();
+	}
+	
+	public Solucao obterListaId( Integer id){
+		
+		return  solucaoRepository.findById(id).orElse(null);
 	}
 
 }

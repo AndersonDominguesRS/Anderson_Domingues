@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import br.edu.infinet.assesment.model.domain.Usuario;
-import br.edu.infinet.assesment.model.repository.UsuarioRepository;
 import br.edu.infinet.assesment.model.service.UsuarioService;
 
 @Controller

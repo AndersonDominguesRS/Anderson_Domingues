@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,55 +13,57 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.edu.infinet.assesment.model.auxiliar.Constante;
 import br.edu.infinet.assesment.model.exceptions.CadastroClienteExceptions;
 
-
 @Entity
-@Table(name="TCliente")
+@Table(name = "TCliente")
 public class Cliente {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String statusEmpreemdimento;
 	private String nomeCliente;
-	private String cnpj; 
+	private String cnpj;
 	private String endereco;
 	private String cidade;
 	private String estado;
 	private String pais;
 	private String cep;
-	private String[] campos=null;
-	private int qtdeCadastro=0;
-	private int qtdeTotalCadastros=0;
-	
+	private String[] campos = null;
+	private int qtdeCadastro = 0;
+	private int qtdeTotalCadastros = 0;
+
 	@ManyToOne
 	@JoinColumn(name = "idUsuario")
 	private Usuario usuario;
-	
+
+	@OneToMany
+	@JoinColumn(name = "idCliente")
+	private List<Ocorrencia> ocorrencias;
+
 //	private List<String> cadastros;
-	
-	public Cliente () {
-		
+
+	public Cliente() {
+
 	}
-	
-	public Cliente (String nomeCliente_, String cnpj, String endereco, String cidade, String estado, String pais, String cep) {
-		
-		this.nomeCliente=nomeCliente_;
-		this.cnpj=cnpj;
-		this.endereco=endereco;
-		this.cidade=cidade;
-		this.estado=estado;
-		this.pais=pais;
-		this.cep=cep;
+
+	public Cliente(String nomeCliente_, String cnpj, String endereco, String cidade, String estado, String pais,
+			String cep) {
+
+		this.nomeCliente = nomeCliente_;
+		this.cnpj = cnpj;
+		this.endereco = endereco;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.pais = pais;
+		this.cep = cep;
 	}
-	
-	
-	
-	
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -148,12 +151,11 @@ public class Cliente {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	
-	
+
 	public String getNome() {
 		return nomeCliente;
 	}
-	
+
 	public void setNome(String nome) {
 		this.nomeCliente = nome;
 	}
@@ -182,7 +184,6 @@ public class Cliente {
 		return cep;
 	}
 
-	
 //	public void ImportaCliente() {
 //		
 //	
@@ -254,39 +255,37 @@ public class Cliente {
 //			System.out.println("Importação realizada com sucesso!");
 //			}
 //	}
-	
-	
+
 	public void cadastroCliente() throws CadastroClienteExceptions {
-		
-		if (nomeCliente==null || nomeCliente==null || cnpj==null || endereco==null || cidade==null || estado==null || pais==null || cep==null ) {
-					
+
+		if (nomeCliente == null || nomeCliente == null || cnpj == null || endereco == null || cidade == null
+				|| estado == null || pais == null || cep == null) {
+
 			throw new CadastroClienteExceptions("Todos os campos precisam ser preenchidos.");
 		}
-		
-		
+
 		try {
-			
+
 			try {
 
-				
-				FileWriter fileW=new FileWriter(Constante.dir+Constante.arqEscrita);
-				BufferedWriter escrita = new BufferedWriter(fileW);				
-				
-				escrita.write(statusEmpreemdimento + ":" + nomeCliente + ":" + cnpj + ":" +endereco + ":" + cidade +":" + estado +";"+ pais + ":" + cep + "\r\n");
-						
+				FileWriter fileW = new FileWriter(Constante.dir + Constante.arqEscrita);
+				BufferedWriter escrita = new BufferedWriter(fileW);
+
+				escrita.write(statusEmpreemdimento + ":" + nomeCliente + ":" + cnpj + ":" + endereco + ":" + cidade
+						+ ":" + estado + ";" + pais + ":" + cep + "\r\n");
+
 				escrita.close();
 				fileW.close();
-				
-				
+
 			} catch (IOException e) {
-				
+
 				System.out.println("[ERROR] - " + e.getMessage());
 			}
-			
+
 		} finally {
 			System.out.println("Cliente cadastrado com sucesso!");
-			}
-		
+		}
+
 		System.out.println("Status do empreendimento: " + " " + statusEmpreemdimento);
 		System.out.println("Nome do empreendimento: " + " " + nomeCliente);
 		System.out.println("CNPJ	: " + " " + cnpj);
@@ -296,40 +295,37 @@ public class Cliente {
 		System.out.println("Pais	: " + " " + pais);
 		System.out.println("CEP	: " + " " + cep);
 		System.out.println("-----------------------------------");
-			
-		
+
 	}
-	
-	
+
 	public void ImportaClienteAtivo() {
-		
-		
+
 		try {
-			
+
 			try {
-				
-				FileReader file=new FileReader(Constante.dir+Constante.arq);
+
+				FileReader file = new FileReader(Constante.dir + Constante.arq);
 				BufferedReader leitura = new BufferedReader(file);
-				
+
 				String linha = leitura.readLine();
-							
-				while (linha != null ) {
-					
+
+				while (linha != null) {
+
 					campos = linha.split(";");
-					
+
 					switch (campos[0]) {
 					case "ATIVO":
-						
-						statusEmpreemdimento=campos[0];
-						nomeCliente=campos[1];
-						cnpj=campos[2];
-						endereco=campos[3];
-						cidade=campos[4];
-						estado=campos[5];
-						pais=campos[6];
-						cep=campos[7];
-						
-						System.out.println("Status do empreendimento: " + " " + statusEmpreemdimento);					
+
+						statusEmpreemdimento = campos[0];
+						nomeCliente = campos[1];
+						cnpj = campos[2];
+						endereco = campos[3];
+						cidade = campos[4];
+						estado = campos[5];
+						pais = campos[6];
+						cep = campos[7];
+
+						System.out.println("Status do empreendimento: " + " " + statusEmpreemdimento);
 						System.out.println("Nome do empreendimento: " + " " + nomeCliente);
 						System.out.println("CNPJ	: " + " " + cnpj);
 						System.out.println("Endereço:" + " " + endereco);
@@ -337,40 +333,36 @@ public class Cliente {
 						System.out.println("Estado	: " + " " + estado);
 						System.out.println("Pais	: " + " " + pais);
 						System.out.println("CEP	: " + " " + cep);
-						System.out.println("-----------------------------------");		
-						
+						System.out.println("-----------------------------------");
+
 						break;
 
 					default:
 						break;
 					}
-					
-					linha= leitura.readLine();	
-					
+
+					linha = leitura.readLine();
+
 				}
-				
+
 				leitura.close();
 				file.close();
-				
-				
+
 			} catch (IOException e) {
-				
-				System.out.println("[ERROR] - " + e.getMessage() );
+
+				System.out.println("[ERROR] - " + e.getMessage());
 			}
-			
+
 		} finally {
 			System.out.println("Importação de clientes ativos realizada com sucesso!");
-			}		
-	}	
-	
-	
+		}
+	}
+
 	@Override
 	public String toString() {
-		
-		return statusEmpreemdimento + " ; " + nomeCliente + " ; " + cnpj + " ; " + endereco + " ; " + cidade + " ; " +
-				 estado + " ; " + pais + " ; " + cep + "; " + pais  ;
-	}
-	
 
+		return statusEmpreemdimento + " ; " + nomeCliente + " ; " + cnpj + " ; " + endereco + " ; " + cidade + " ; "
+				+ estado + " ; " + pais + " ; " + cep + "; " + pais;
+	}
 
 }

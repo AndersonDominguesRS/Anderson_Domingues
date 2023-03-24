@@ -7,17 +7,20 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import br.edu.infinet.assesment.model.domain.Cliente;
 import br.edu.infinet.assesment.model.domain.Defeito;
 import br.edu.infinet.assesment.model.service.DefeitoService;
 
+@Order(3)
 @Component
 public class DefeitoLoader implements ApplicationRunner {
 
-		
 		@Autowired
 		private DefeitoService defeitoService;
+
 
 		@Override
 		public void run(ApplicationArguments args) throws Exception {
@@ -38,6 +41,9 @@ public class DefeitoLoader implements ApplicationRunner {
 								
 					while (linha != null ) {
 						
+						Cliente cliente1=new Cliente();	
+						cliente1.setId(3);
+												
 						campos = linha.split(";");	
 						
 						Defeito defeito=new Defeito();
@@ -46,10 +52,10 @@ public class DefeitoLoader implements ApplicationRunner {
 						defeito.setObservacoes(campos[1]);
 						defeito.setTipoEquipamento(campos[2]);
 						defeito.setIdentificacaoEquipamento(campos[3]);
-						
+						defeito.setCliente(cliente1);
+			
 						defeitoService.incluir(defeito);
-											
-						
+																
 						linha = leitura.readLine();
 				
 					}

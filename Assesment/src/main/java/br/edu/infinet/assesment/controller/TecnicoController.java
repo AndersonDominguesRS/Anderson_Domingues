@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import br.edu.infinet.assesment.model.domain.Tecnico;
 import br.edu.infinet.assesment.model.service.TecnicoService;
 
@@ -37,8 +38,10 @@ public class TecnicoController {
 
 	@GetMapping(value = "/tecnico/{id}/excluir")
 	public String excluirTecnico(@PathVariable Integer id) {
+		
+		Tecnico tecnico = new Tecnico();
 
-		Tecnico tecnico = tecnicoService.excluir(id);
+		tecnicoService.excluirTecnico(id);
 		
 		msg="A exclusão do tecnico " + tecnico.getNomeTecnico() + " foi realizada com sucesso!!!";
 
