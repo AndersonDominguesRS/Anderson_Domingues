@@ -44,7 +44,7 @@
 		<div class="dropdown-container">
 
 			<c:if test="${usuario.tipo=='ADMINISTRADOR'}">
-				<a href="/cliente/novo">Novo cliente</a>
+				<a href="/cliente/novoCep">Novo cliente</a>
 			</c:if>
 			<a href="/cliente/lista">Lista de clientes</a>
 		</div>

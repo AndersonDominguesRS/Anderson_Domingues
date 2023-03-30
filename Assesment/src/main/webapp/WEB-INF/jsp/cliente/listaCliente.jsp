@@ -47,12 +47,12 @@
 						<th>ID</th>
 						<th>Nome Cliente</th>
 						<th>CNPJ</th>
-						<th>Endereço</th>
+						<th>CEP</th>
+						<th>Numero</th>
+						<th>Logradouro</th>
+						<th>Bairro</th>
 						<th>Cidade</th>
-						<th>Estado</th>
-						<th>Pais</th>
-						<th>Cep</th>
-						<th>Usuario</th>
+						<th>UF</th>
 						<th>Ações</th>
 					</tr>
 				</thead>
@@ -62,12 +62,12 @@
 							<td>${c.id}</td>
 							<td>${c.nomeCliente}</td>
 							<td>${c.cnpj}</td>
-							<td>${c.endereco}</td>
-							<td>${c.cidade}</td>
-							<td>${c.estado}</td>
-							<td>${c.pais}</td>
-							<td>${c.cep}</td>
-							<td>${c.usuario.nome}</td>
+							<td>${c.enderecoApi.cep}</td>
+							<td>${c.enderecoApi.numero}</td>
+							<td>${c.enderecoApi.logradouro}</td>
+							<td>${c.enderecoApi.bairro}</td>
+							<td>${c.enderecoApi.localidade}</td>
+							<td>${c.enderecoApi.uf}</td>
 							<td><a href="/cliente/${c.id}/excluir"> EXCLUIR </a></td>
 						</tr>
 					</c:forEach>
