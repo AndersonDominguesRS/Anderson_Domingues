@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.edu.infnet.assesment.model.auxiliar.Constante;
 import br.edu.infnet.assesment.model.exceptions.CadastroTecnicoExceptions;
 
@@ -28,6 +30,7 @@ public class Tecnico {
 	private int opcao = 0;
 
 	@ManyToMany(cascade = CascadeType.DETACH)
+	@JsonIgnore
 	private List<Ocorrencia> ocorrencias;
 
 	public Tecnico() {

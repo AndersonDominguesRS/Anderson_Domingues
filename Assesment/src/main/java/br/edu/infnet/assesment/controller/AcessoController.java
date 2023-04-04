@@ -36,6 +36,9 @@ public class AcessoController {
 		if(user != null) {
 			
 			model.addAttribute("usuario", user);
+			
+			
+			
 			return "redirect:/home";
 		}
 		
@@ -53,5 +56,6 @@ public class AcessoController {
 		
 		return "redirect:/";
 	}
+	
 	
 }

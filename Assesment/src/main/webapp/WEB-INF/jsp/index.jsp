@@ -79,7 +79,12 @@
 												<div
 													class="text-xs font-weight-bold text-primary text-uppercase mb-1">
 													Total De Atendimentos</div>
-												<div class="h5 mb-0 font-weight-bold text-gray-800">200</div>
+													
+													<c:forEach var="mapa" items="${mapaQtdeAten}">
+													
+												<div class="h5 mb-0 font-weight-bold text-gray-800">${mapa.value}</div>
+												</c:forEach>
+												
 											</div>
 											<div class="col-auto">
 												<i class="bi bi-clipboard-check fa-2x text-gray-300"></i>
@@ -98,7 +103,11 @@
 												<div
 													class="text-xs font-weight-bold text-success text-uppercase mb-1">
 													Total De Peças Substituidas</div>
-												<div class="h5 mb-0 font-weight-bold text-gray-800">120</div>
+													
+													<c:forEach var="mapa" items="${mapaQtdePecas}">
+												<div class="h5 mb-0 font-weight-bold text-gray-800">${mapa.value}</div>
+												</c:forEach>
+												
 											</div>
 											<div class="col-auto">
 												<i class="bi bi-arrow-repeat fa-2x text-gray-300"></i>
@@ -117,7 +126,11 @@
 												<div
 													class="text-xs font-weight-bold text-danger text-uppercase mb-1">
 													Total De SLA Violados</div>
-												<div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+													
+													<c:forEach var="mapa" items="${mapaQtdeSla}">
+												<div class="h5 mb-0 font-weight-bold text-gray-800">${mapa.value}</div>
+												</c:forEach>
+												
 											</div>
 											<div class="col-auto">
 												<i class="bi bi-exclamation-triangle fa-2x text-gray-300"></i>

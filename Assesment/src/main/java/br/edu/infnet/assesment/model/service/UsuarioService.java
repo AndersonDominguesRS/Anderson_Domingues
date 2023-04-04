@@ -38,5 +38,11 @@ public class UsuarioService {
 		
 		
 	}
+	
+	public long obterQtde() {
+		
+		return usuarioRepository.count();	
+		
+	}
 
 }

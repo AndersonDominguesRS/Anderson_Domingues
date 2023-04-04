@@ -1,6 +1,7 @@
 package br.edu.infnet.assesment.model.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -42,6 +43,21 @@ public class SolucaoService {
 	public Solucao obterListaId( Integer id){
 		
 		return  solucaoRepository.findById(id).orElse(null);
+	}
+	
+	public long qtdeAtendimento() {
+		
+		return solucaoRepository.count();
+	}
+	
+	public Collection<Solucao> qtdeSla( ) {
+		
+		return solucaoRepository.qtdeSla();
+	}
+	
+	public Collection<Solucao> qtdePecas( ) {
+		
+		return solucaoRepository.qtdePecas();
 	}
 
 }
