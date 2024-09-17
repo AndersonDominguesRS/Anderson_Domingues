@@ -1,0 +1,61 @@
+version: '3'
+services:
+  eureka-server:
+    image: eureka-server
+    build:
+      context: ./eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - eureka-network
+
+
+  gateway-service:
+    image: gateway-service
+    build:
+      context: ./gateway
+    depends_on:
+      - eureka-server
+    ports:
+      - "8989:8989"
+    networks:
+      - eureka-network
+
+
+  disciplina:
+    image: disciplina
+    build:
+      context: ./disciplina
+    depends_on:
+      - eureka-server
+    ports:
+      - "8071:8071"
+    networks:
+      - eureka-network
+
+  microsservico-cadastro:
+    image: microsservico-cadastro
+    build:
+      context: ./microsser_cadastro_PB_204
+    depends_on:
+      - eureka-server
+    ports:
+      - "8082:8082"
+    networks:
+      - eureka-network
+
+  aluno-server:
+    image: aluno-server
+    build:
+      context: ./Pb_Aluno_Microsser
+    depends_on:
+      - eureka-server
+    ports:
+      - "8070:8070"
+    networks:
+      - eureka-network
+
+
+networks:
+  eureka-network:
+    driver: bridge
